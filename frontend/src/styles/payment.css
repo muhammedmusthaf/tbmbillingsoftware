@@ -1,0 +1,606 @@
+/* ==========================================
+   PAYMENT PAGE — payment.css
+   Uses only the classNames already in Payment.jsx
+   Colors match home.css / billing.css
+   ========================================== */
+
+.payment-page,
+.payment-loading-page {
+    --p-bg: #f6f7f9;
+    --p-card: #ffffff;
+    --p-border: #dfe3e8;
+    --p-text: #101216;
+    --p-muted: #64748b;
+    --p-slate: #5b6b86;
+    --p-orange: #d9480f;
+    --p-orange-dark: #b93a09;
+    --p-orange-soft: #ffe8d1;
+    --p-dark: #111317;
+    --p-green: #2b8a3e;
+    --p-red: #c92a2a;
+    --p-amber: #f59f00;
+    --p-tab-bg: #eceff4;
+}
+
+.payment-page *,
+.payment-loading-page * {
+    box-sizing: border-box;
+}
+
+.payment-page button,
+.payment-page input,
+.payment-page select,
+.payment-page textarea,
+.payment-loading-page button {
+    font-family: inherit;
+}
+
+/* ---------- Loading ---------- */
+
+.payment-loading-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--p-bg);
+}
+
+.payment-loading-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--p-muted);
+}
+
+/* ---------- Page shell ---------- */
+
+.payment-page {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 120px;
+    background: var(--p-bg);
+    color: var(--p-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Header ---------- */
+
+.payment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 6px;
+}
+
+.payment-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.payment-brand-logo {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--p-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.payment-brand-logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.payment-brand-logo-letter {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.payment-brand-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.payment-brand-name {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.payment-brand-type {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--p-muted);
+    text-transform: uppercase;
+}
+
+.payment-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.payment-notification-button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--p-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.payment-user-role {
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: var(--p-orange-soft);
+    color: var(--p-orange);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+/* ---------- Title ---------- */
+
+.payment-title-section {
+    padding: 14px 0 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--p-border);
+}
+
+.payment-page-title {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+/* ---------- Amount due ---------- */
+
+.payment-amount-card {
+    margin-bottom: 26px;
+    padding: 28px 24px;
+    border-radius: 16px;
+    background: var(--p-orange);
+    color: #fff;
+}
+
+.payment-amount-label {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: #fff;
+}
+
+.payment-amount-value {
+    margin: 0;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.payment-amount-description {
+    margin: 8px 0 0;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* ---------- Payment method ---------- */
+
+.payment-method-section {
+    margin-bottom: 18px;
+}
+
+.payment-section-title {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.payment-method-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 6px;
+    border-radius: 14px;
+    background: var(--p-tab-bg);
+}
+
+.payment-method-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 52px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--p-slate);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.payment-method-button.payment-method-active {
+    background: var(--p-dark);
+    color: #fff;
+}
+
+/* ---------- Shared card ---------- */
+
+.payment-cash-card,
+.payment-upi-card,
+.payment-credit-card {
+    margin-bottom: 18px;
+    padding: 20px;
+    border-radius: 14px;
+    background: var(--p-card);
+    border: 1px solid var(--p-border);
+}
+
+.payment-card-title {
+    margin: 0 0 18px;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.payment-field-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--p-slate);
+}
+
+/* ---------- Cash ---------- */
+
+.payment-cash-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 58px;
+    padding: 0 16px;
+    border: 1px solid var(--p-dark);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.payment-cash-input-wrapper:focus-within {
+    border-color: var(--p-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.payment-currency-symbol {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--p-text);
+}
+
+.payment-cash-input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--p-text);
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.payment-cash-input::placeholder {
+    color: #9aa5b5;
+    font-weight: 700;
+}
+
+.payment-change-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.payment-change-label {
+    font-size: 14.5px;
+    color: var(--p-muted);
+}
+
+.payment-change-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--p-green);
+}
+
+/* ---------- UPI ---------- */
+
+.payment-qr-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 16px;
+    padding: 18px;
+    border: 1px solid var(--p-dark);
+    background: var(--p-tab-bg);
+}
+
+.payment-qr-code {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.payment-upi-id {
+    display: block;
+    margin-bottom: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--p-text);
+}
+
+.payment-upi-status {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: var(--p-amber);
+    color: var(--p-dark);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.payment-upi-reference-input {
+    display: block;
+    width: 100%;
+    height: 56px;
+    padding: 0 16px;
+    border: 1px solid var(--p-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--p-text);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.payment-upi-reference-input::placeholder {
+    color: #9aa5b5;
+    font-weight: 400;
+}
+
+.payment-upi-reference-input:focus {
+    border-color: var(--p-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.payment-upi-not-configured {
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--p-orange-soft);
+    border: 1px solid var(--p-amber);
+    color: #7a3b0a;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* ---------- Credit ---------- */
+
+.payment-credit-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.payment-credit-card .payment-field-label {
+    margin: 0;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--p-muted);
+}
+
+.payment-customer-select-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.payment-customer-select {
+    width: 100%;
+    padding: 6px 24px 6px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--p-text);
+    font-size: 15px;
+    font-weight: 800;
+    text-align: right;
+    text-align-last: right;
+    text-overflow: ellipsis;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.payment-customer-select-icon {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--p-muted);
+    pointer-events: none;
+}
+
+.payment-credit-date-input {
+    flex: 1;
+    min-width: 0;
+    padding: 6px 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--p-text);
+    font-size: 15px;
+    font-weight: 800;
+    text-align: right;
+}
+
+/* Note field: full-width textarea, label hidden like the design */
+
+.payment-credit-field:last-child {
+    display: block;
+    margin-bottom: 0;
+}
+
+.payment-credit-field:last-child .payment-field-label {
+    display: none;
+}
+
+.payment-credit-note {
+    display: block;
+    width: 100%;
+    min-height: 60px;
+    padding: 16px;
+    border: 1px solid var(--p-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--p-text);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.payment-credit-note::placeholder {
+    color: #9aa5b5;
+    font-weight: 400;
+}
+
+.payment-credit-note:focus {
+    border-color: var(--p-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+/* ---------- Error ---------- */
+
+.payment-error-message {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #ffe3e3;
+    border: 1px solid #ffa8a8;
+    color: var(--p-red);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ---------- Actions ---------- */
+
+.payment-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.payment-confirm-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 60px;
+    border: 1px solid var(--p-dark);
+    border-radius: 12px;
+    background: var(--p-orange);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.payment-confirm-button:active:not(:disabled) {
+    background: var(--p-orange-dark);
+}
+
+.payment-confirm-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.payment-back-button {
+    width: 100%;
+    height: 58px;
+    border: 1px solid var(--p-dark);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--p-text);
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.payment-back-button:active:not(:disabled) {
+    background: var(--p-tab-bg);
+}
+
+.payment-back-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .payment-page { padding-left: 16px; padding-right: 16px; }
+    .payment-page-title { font-size: 26px; }
+    .payment-amount-value { font-size: 38px; }
+    .payment-method-button { font-size: 14px; gap: 6px; }
+    .payment-qr-wrapper { padding: 12px; }
+}

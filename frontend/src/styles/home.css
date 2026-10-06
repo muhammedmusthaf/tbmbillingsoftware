@@ -1,0 +1,648 @@
+/* ==========================================
+   HOME PAGE — home.css
+   Uses only the classNames already in Home.jsx
+   ========================================== */
+
+.home-page,
+.home-loading-page {
+    --h-bg: #f6f7f9;
+    --h-card: #ffffff;
+    --h-border: #dfe3e8;
+    --h-text: #101216;
+    --h-muted: #64748b;
+    --h-orange: #d9480f;
+    --h-orange-soft: #ffe8d1;
+    --h-dark: #111317;
+    --h-green: #2b8a3e;
+    --h-blue: #1c64a8;
+    --h-amber: #f59f00;
+    --h-red: #c92a2a;
+    --h-gray-icon: #eceef2;
+}
+
+.home-page *,
+.home-loading-page * {
+    box-sizing: border-box;
+}
+
+.home-page button,
+.home-loading-page button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ---------- Loading ---------- */
+
+.home-loading-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--h-bg);
+}
+
+.home-loading-content {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--h-muted);
+}
+
+/* ---------- Page shell ---------- */
+
+.home-page {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 110px;
+    background: var(--h-bg);
+    color: var(--h-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Header ---------- */
+
+.home-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 6px;
+}
+
+.home-header-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.home-header-logo {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--h-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.home-header-logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home-header-logo-letter {
+    color: #fff;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.home-header-shop-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.home-header-shop-name {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.home-header-shop-type {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--h-muted);
+    text-transform: uppercase;
+}
+
+.home-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.home-header-notification-button {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--h-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-header-notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--h-red);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--h-bg);
+}
+
+.home-header-role {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.home-header-role-owner {
+    background: var(--h-orange-soft);
+    color: var(--h-orange);
+}
+
+.home-header-role-worker {
+    background: #e2edf8;
+    color: var(--h-blue);
+}
+
+/* ---------- Greeting ---------- */
+
+.home-greeting-section {
+    padding: 14px 0 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--h-border);
+}
+
+.home-greeting-title {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.home-greeting-date {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: var(--h-muted);
+}
+
+/* ---------- Error ---------- */
+
+.home-error-box {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #ffe3e3;
+    border: 1px solid #ffa8a8;
+    color: var(--h-red);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ---------- Counter overview ---------- */
+
+.home-counter-section {
+    margin-bottom: 18px;
+    padding: 24px 22px;
+    border-radius: 18px;
+    background: var(--h-dark);
+    color: #fff;
+}
+
+.home-counter-header {
+    margin-bottom: 14px;
+}
+
+.home-counter-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: #fff;
+}
+
+.home-counter-value {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.home-counter-description {
+    margin: 6px 0 0;
+    font-size: 15px;
+    color: #d5d9e0;
+}
+
+/* ---------- Summary cards ---------- */
+
+.home-summary-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 26px;
+}
+
+.home-summary-sales-card,
+.home-summary-bills-card,
+.home-summary-credit-card,
+.home-summary-stock-card {
+    padding: 14px 16px 16px;
+    border-radius: 14px;
+    background: var(--h-card);
+    border: 1px solid var(--h-border);
+}
+
+.home-summary-credit-card,
+.home-summary-stock-card {
+    cursor: pointer;
+}
+
+.home-summary-sales-icon,
+.home-summary-bills-icon,
+.home-summary-credit-icon,
+.home-summary-stock-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 14px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.home-summary-sales-icon { background: var(--h-orange); }
+.home-summary-bills-icon { background: var(--h-blue); }
+.home-summary-credit-icon { background: var(--h-amber); }
+.home-summary-stock-icon { background: var(--h-red); }
+
+.home-summary-sales-value,
+.home-summary-bills-value,
+.home-summary-credit-value,
+.home-summary-stock-value {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.home-summary-sales-label,
+.home-summary-bills-label,
+.home-summary-credit-label,
+.home-summary-stock-label {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: var(--h-muted);
+}
+
+/* ---------- Section headings ---------- */
+
+.home-section-heading {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--h-text);
+}
+
+.home-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.home-section-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--h-orange);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* ---------- Quick actions ---------- */
+
+.home-quick-actions-section {
+    margin-bottom: 20px;
+}
+
+.home-quick-actions-section > .home-section-heading {
+    margin-bottom: 18px;
+}
+
+.home-quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.home-action-new-bill,
+.home-action-stock-in,
+.home-action-customer,
+.home-action-reports {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 8px 14px;
+    border-radius: 14px;
+    background: var(--h-card);
+    border: 1px solid var(--h-border);
+    color: var(--h-text);
+}
+
+.home-action-reports {
+    width: 100%;
+    margin-top: 12px;
+}
+
+.home-action-new-bill-icon,
+.home-action-stock-in-icon,
+.home-action-customer-icon,
+.home-action-reports-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #ffe6cf;
+    color: var(--h-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-action-new-bill-text,
+.home-action-stock-in-text,
+.home-action-customer-text,
+.home-action-reports-text {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--h-text);
+}
+
+/* ---------- Stock warning banner ---------- */
+
+.home-stock-warning-section {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--h-orange-soft);
+    border: 1px solid var(--h-amber);
+    cursor: pointer;
+}
+
+.home-stock-warning-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--h-amber);
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-stock-warning-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.home-stock-warning-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.home-stock-warning-description {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: #5b6b7e;
+}
+
+.home-stock-warning-arrow {
+    flex-shrink: 0;
+    color: var(--h-text);
+}
+
+/* ---------- Low stock products ---------- */
+
+.home-low-products-section {
+    margin-bottom: 28px;
+}
+
+.home-low-products-list {
+    display: flex;
+    flex-direction: column;
+    border-radius: 14px;
+    background: var(--h-card);
+    border: 1px solid var(--h-border);
+    overflow: hidden;
+}
+
+.home-low-product-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf0f3;
+}
+
+.home-low-product-row:last-child {
+    border-bottom: none;
+}
+
+.home-low-product-info {
+    min-width: 0;
+}
+
+.home-low-product-name {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.home-low-product-code {
+    margin: 3px 0 0;
+    font-size: 12.5px;
+    color: var(--h-muted);
+}
+
+.home-low-product-stock {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #ffe3e3;
+    color: var(--h-red);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* ---------- Recent bills ---------- */
+
+.home-recent-bills-section {
+    margin-bottom: 10px;
+}
+
+.home-recent-bills-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-recent-bill-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 4px;
+    border: none;
+    border-bottom: 1px solid var(--h-border);
+    background: transparent;
+    text-align: left;
+    color: var(--h-text);
+}
+
+.home-recent-bill-row:last-child {
+    border-bottom: none;
+}
+
+.home-recent-bill-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--h-gray-icon);
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-recent-bill-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.home-recent-bill-title {
+    margin: 0;
+    font-size: 15.5px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.home-recent-bill-details {
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: var(--h-muted);
+}
+
+.home-recent-bill-total {
+    flex-shrink: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--h-text);
+}
+
+.home-recent-bills-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 30px 0;
+    color: var(--h-muted);
+}
+
+.home-recent-bills-empty p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* ---------- Bottom navigation ---------- */
+
+.home-owner-bottom-nav,
+.home-worker-bottom-nav {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    z-index: 50;
+    width: 100%;
+    max-width: 430px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 10px 6px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    border-top: 1px solid var(--h-border);
+}
+
+.home-owner-bottom-nav button,
+.home-worker-bottom-nav button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 0;
+    border: none;
+    background: transparent;
+    color: #5b6b86;
+}
+
+.home-owner-bottom-nav button span,
+.home-worker-bottom-nav button span {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.home-owner-bottom-nav button.home-nav-active,
+.home-worker-bottom-nav button.home-nav-active {
+    color: var(--h-orange);
+}
+
+/* ---------- Larger screens ---------- */
+
+@media (min-width: 431px) {
+    .home-page {
+        box-shadow: 0 0 0 1px var(--h-border);
+    }
+}
+
+/* ---------- Dark mode safeguard (keeps design consistent) ---------- */
+
+@media (max-width: 360px) {
+    .home-greeting-title { font-size: 26px; }
+    .home-counter-value { font-size: 34px; }
+    .home-header-shop-name { font-size: 16px; }
+}
