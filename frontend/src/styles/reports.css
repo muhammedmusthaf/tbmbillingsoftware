@@ -1,0 +1,682 @@
+/* ==========================================
+   REPORTS & ANALYTICS PAGE — reports.css
+   Uses only the classNames already in Reports.jsx
+   Colors match home.css / billing.css / inventory.css
+   ========================================== */
+
+.reports-page {
+    --r-bg: #f6f7f9;
+    --r-card: #ffffff;
+    --r-border: #dfe3e8;
+    --r-text: #101216;
+    --r-muted: #64748b;
+    --r-slate: #5b6b86;
+    --r-orange: #d9480f;
+    --r-orange-dark: #b93a09;
+    --r-peach: #ffe6cf;
+    --r-peach-soft: #ffe8d1;
+    --r-dark: #111317;
+    --r-green: #2b8a3e;
+    --r-red: #c92a2a;
+    --r-red-soft: #ffe3e3;
+    --r-amber: #f59f00;
+    --r-gray: #eceff4;
+
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 120px;
+    background: var(--r-bg);
+    color: var(--r-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.reports-page *,
+.reports-page *::before,
+.reports-page *::after {
+    box-sizing: border-box;
+}
+
+.reports-page button,
+.reports-page input {
+    font-family: inherit;
+}
+
+/* ---------- Header ---------- */
+
+.reports-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 -20px 22px;
+    padding: 14px 20px 16px;
+    border-bottom: 1px solid var(--r-border);
+}
+
+.reports-back-button,
+.reports-refresh-button {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--r-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--r-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.reports-back-button:active,
+.reports-refresh-button:active:not(:disabled) {
+    background: var(--r-gray);
+}
+
+.reports-refresh-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.reports-header-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.reports-header-info h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.reports-header-info p {
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: var(--r-muted);
+}
+
+/* ---------- Date filter ---------- */
+
+.reports-date-section {
+    margin-bottom: 22px;
+}
+
+.reports-section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--r-slate);
+}
+
+.reports-section-label svg {
+    flex-shrink: 0;
+    color: var(--r-orange);
+}
+
+.reports-date-tabs {
+    display: flex;
+    gap: 10px;
+    margin: 0 -20px;
+    padding: 0 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+}
+
+.reports-date-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.reports-date-tab {
+    flex-shrink: 0;
+    height: 44px;
+    padding: 0 18px;
+    border: 1px solid var(--r-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--r-text);
+    font-size: 14px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.reports-date-tab.reports-date-tab-active {
+    background: var(--r-dark);
+    border-color: var(--r-dark);
+    color: #fff;
+}
+
+.reports-custom-date {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.reports-custom-date label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--r-slate);
+}
+
+.reports-custom-date input {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    padding: 0 12px;
+    border: 1px solid var(--r-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--r-text);
+    font-size: 15px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.reports-custom-date input:focus {
+    border-color: var(--r-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+/* ---------- Messages ---------- */
+
+.reports-error-message {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--r-red-soft);
+    border: 1px solid #ffa8a8;
+    color: var(--r-red);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.reports-warning-message {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #fff4e0;
+    border: 1px solid #ffd68a;
+    color: #8a5a00;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.reports-loading {
+    padding: 50px 0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--r-muted);
+}
+
+/* ---------- Section heading (shared) ---------- */
+
+.reports-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.reports-section-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.reports-section-heading > span {
+    padding-top: 4px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--r-muted);
+    text-align: right;
+}
+
+.reports-section-heading p {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--r-muted);
+}
+
+.reports-section-heading > svg {
+    flex-shrink: 0;
+    margin-top: 3px;
+    color: var(--r-orange);
+}
+
+/* ---------- Cards (chart / products / payment / inventory) ---------- */
+
+.reports-chart-section,
+.reports-products-section,
+.reports-payment-section,
+.reports-inventory-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--r-border);
+    border-radius: 14px;
+    background: var(--r-card);
+}
+
+/* ---------- Summary ---------- */
+
+.reports-summary-section {
+    margin-bottom: 20px;
+}
+
+.reports-summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.reports-summary-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--r-border);
+    border-radius: 14px;
+    background: var(--r-card);
+}
+
+.reports-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.reports-card-top span {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--r-muted);
+}
+
+.reports-card-top svg {
+    flex-shrink: 0;
+    color: var(--r-orange);
+}
+
+.reports-summary-card > strong {
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.15;
+    word-break: break-word;
+    color: var(--r-text);
+}
+
+.reports-summary-card > small {
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--r-muted);
+}
+
+/* Total sales: full-width orange card */
+
+.reports-summary-card.reports-revenue-card {
+    grid-column: 1 / -1;
+    padding: 22px;
+    border-color: var(--r-orange);
+    background: var(--r-orange);
+}
+
+.reports-revenue-card .reports-card-top span {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.reports-revenue-card .reports-card-top svg {
+    color: #fff;
+}
+
+.reports-summary-card.reports-revenue-card > strong {
+    font-size: 36px;
+    color: #fff;
+}
+
+.reports-summary-card.reports-revenue-card > small {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+/* ---------- Sales chart ---------- */
+
+.reports-empty-chart,
+.reports-empty-products {
+    padding: 30px 12px;
+    border: 1px dashed var(--r-border);
+    border-radius: 12px;
+    background: var(--r-bg);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--r-muted);
+}
+
+.reports-chart-scroll {
+    margin: 0 -4px;
+    padding: 4px 4px 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.reports-chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    min-width: max-content;
+}
+
+.reports-chart-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 66px;
+}
+
+.reports-chart-value {
+    width: 100%;
+    font-size: 10.5px;
+    font-weight: 800;
+    line-height: 1.25;
+    text-align: center;
+    word-break: break-word;
+    color: var(--r-text);
+}
+
+.reports-chart-track {
+    display: flex;
+    align-items: flex-end;
+    width: 38px;
+    height: 140px;
+    border-radius: 8px;
+    background: var(--r-peach-soft);
+    overflow: hidden;
+}
+
+.reports-chart-bar {
+    width: 100%;
+    min-height: 4px;
+    border-radius: 8px;
+    background: var(--r-orange);
+}
+
+.reports-chart-date {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--r-slate);
+    white-space: nowrap;
+}
+
+/* ---------- Top products ---------- */
+
+.reports-product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.reports-product-card {
+    padding: 14px;
+    border-radius: 12px;
+    background: var(--r-bg);
+}
+
+.reports-product-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.reports-product-top > strong {
+    flex-shrink: 0;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.reports-product-name {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.reports-product-name > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.reports-product-name strong {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.reports-product-name small {
+    font-size: 12.5px;
+    color: var(--r-muted);
+}
+
+.reports-product-rank {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--r-peach);
+    color: var(--r-orange);
+    font-size: 15px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reports-product-progress {
+    height: 8px;
+    margin-top: 12px;
+    border-radius: 999px;
+    background: var(--r-gray);
+    overflow: hidden;
+}
+
+.reports-product-progress-fill {
+    height: 100%;
+    min-width: 4px;
+    border-radius: 999px;
+    background: var(--r-orange);
+}
+
+/* ---------- Payment methods ---------- */
+
+.reports-payment-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.reports-payment-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #edf0f3;
+}
+
+.reports-payment-row:first-child {
+    padding-top: 0;
+}
+
+.reports-payment-row:last-child {
+    border-bottom: none;
+}
+
+.reports-payment-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reports-payment-label svg {
+    flex-shrink: 0;
+    color: var(--r-orange);
+}
+
+.reports-payment-label span {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.reports-payment-row > strong {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.reports-payment-note {
+    margin: 10px 0 0;
+    padding-top: 14px;
+    border-top: 1px dashed #c4cad3;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--r-muted);
+}
+
+/* ---------- Inventory ---------- */
+
+.reports-inventory-link {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--r-orange);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.reports-inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.reports-inventory-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 16px 8px;
+    border-radius: 12px;
+    background: var(--r-gray);
+    text-align: center;
+}
+
+.reports-inventory-card svg {
+    color: var(--r-slate);
+}
+
+.reports-inventory-card strong {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--r-text);
+}
+
+.reports-inventory-card span {
+    font-size: 12.5px;
+    line-height: 1.3;
+    color: var(--r-muted);
+}
+
+.reports-inventory-card.reports-inventory-low {
+    background: var(--r-peach-soft);
+}
+
+.reports-inventory-low svg,
+.reports-inventory-low strong {
+    color: var(--r-orange);
+}
+
+.reports-inventory-card.reports-inventory-out {
+    background: var(--r-red-soft);
+}
+
+.reports-inventory-out svg,
+.reports-inventory-out strong {
+    color: var(--r-red);
+}
+
+/* ---------- Export ---------- */
+
+.reports-export-section {
+    display: flex;
+}
+
+.reports-export-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 60px;
+    border: 1px solid var(--r-dark);
+    border-radius: 12px;
+    background: var(--r-orange);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.reports-export-button:active:not(:disabled) {
+    background: var(--r-orange-dark);
+}
+
+.reports-export-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .reports-page { padding-left: 16px; padding-right: 16px; }
+    .reports-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .reports-date-tabs { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .reports-header-info h1 { font-size: 19px; }
+    .reports-summary-card.reports-revenue-card > strong { font-size: 30px; }
+    .reports-chart-section,
+    .reports-products-section,
+    .reports-payment-section,
+    .reports-inventory-section { padding: 16px; }
+    .reports-inventory-grid { gap: 8px; }
+}

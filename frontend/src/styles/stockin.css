@@ -1,0 +1,701 @@
+/* ==========================================
+   STOCK IN PAGE — stockIn.css
+   Uses only the classNames already in StockIn.jsx
+   Colors match home.css / billing.css / inventory.css
+   ========================================== */
+
+.stockin-page,
+.stockin-loading-page {
+    --s-bg: #f6f7f9;
+    --s-card: #ffffff;
+    --s-border: #dfe3e8;
+    --s-text: #101216;
+    --s-muted: #64748b;
+    --s-slate: #5b6b86;
+    --s-orange: #d9480f;
+    --s-orange-dark: #b93a09;
+    --s-peach: #ffe6cf;
+    --s-dark: #111317;
+    --s-green: #2b8a3e;
+    --s-green-soft: #e3f4e7;
+    --s-red: #c92a2a;
+    --s-red-soft: #ffe3e3;
+    --s-gray: #eceff4;
+}
+
+.stockin-page *,
+.stockin-loading-page * {
+    box-sizing: border-box;
+}
+
+.stockin-page button,
+.stockin-page input,
+.stockin-page textarea,
+.stockin-loading-page button {
+    font-family: inherit;
+}
+
+/* ---------- Loading ---------- */
+
+.stockin-loading-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--s-bg);
+}
+
+.stockin-loading-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--s-muted);
+}
+
+/* ---------- Page shell ---------- */
+
+.stockin-page {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 120px;
+    background: var(--s-bg);
+    color: var(--s-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Header ---------- */
+
+.stockin-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 -20px 22px;
+    padding: 14px 20px 16px;
+    border-bottom: 1px solid var(--s-border);
+}
+
+.stockin-back-button {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--s-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--s-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.stockin-back-button:active {
+    background: var(--s-gray);
+}
+
+.stockin-header-info {
+    min-width: 0;
+}
+
+.stockin-title {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.stockin-subtitle {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    color: var(--s-muted);
+}
+
+/* ---------- Search ---------- */
+
+.stockin-search-section {
+    position: relative;
+    margin-bottom: 26px;
+}
+
+.stockin-field-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--s-slate);
+}
+
+.stockin-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.stockin-search-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--s-slate);
+    pointer-events: none;
+}
+
+.stockin-search-input {
+    width: 100%;
+    height: 56px;
+    padding: 0 16px 0 46px;
+    border: 1px solid var(--s-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--s-text);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stockin-search-input::placeholder {
+    color: #8b97a8;
+    font-weight: 400;
+}
+
+.stockin-search-input:focus {
+    border-color: var(--s-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.stockin-search-results {
+    margin-top: 10px;
+    border: 1px solid var(--s-border);
+    border-radius: 14px;
+    background: var(--s-card);
+    box-shadow: 0 8px 24px rgba(16, 18, 22, 0.08);
+    overflow: hidden;
+}
+
+.stockin-search-result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px 14px;
+    border: none;
+    border-bottom: 1px solid #edf0f3;
+    background: transparent;
+    color: var(--s-text);
+    text-align: left;
+    cursor: pointer;
+}
+
+.stockin-search-result:last-child {
+    border-bottom: none;
+}
+
+.stockin-search-result:active {
+    background: var(--s-gray);
+}
+
+.stockin-search-result > svg {
+    flex-shrink: 0;
+    color: var(--s-orange);
+}
+
+.stockin-search-product-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--s-gray);
+    color: var(--s-slate);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.stockin-search-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stockin-search-product-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stockin-search-product-info strong {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.stockin-search-product-info span {
+    font-size: 12.5px;
+    color: var(--s-muted);
+}
+
+/* ---------- Products section ---------- */
+
+.stockin-items-section {
+    margin-bottom: 26px;
+}
+
+.stockin-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.stockin-section-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.stockin-section-heading span {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--s-orange);
+}
+
+.stockin-empty-products {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 34px 20px;
+    border: 1px dashed var(--s-border);
+    border-radius: 14px;
+    background: var(--s-card);
+    color: var(--s-muted);
+}
+
+.stockin-empty-products h3 {
+    margin: 12px 0 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--s-text);
+}
+
+.stockin-empty-products p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* ---------- Product cards ---------- */
+
+.stockin-product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.stockin-product-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--s-border);
+    border-radius: 14px;
+    background: var(--s-card);
+}
+
+.stockin-product-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.stockin-product-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.stockin-product-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--s-peach);
+    color: var(--s-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.stockin-product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.stockin-product-info {
+    min-width: 0;
+}
+
+.stockin-product-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.stockin-product-info p {
+    margin: 3px 0 0;
+    font-size: 13px;
+    color: var(--s-muted);
+}
+
+.stockin-remove-button {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--s-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--s-red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.stockin-remove-button:active {
+    background: var(--s-red-soft);
+}
+
+/* Fields inside product card */
+
+.stockin-product-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.stockin-product-field label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--s-slate);
+}
+
+/* Quantity control */
+
+.stockin-quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stockin-quantity-control button {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--s-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--s-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.stockin-quantity-control button:last-child {
+    background: var(--s-orange);
+    border-color: var(--s-orange);
+    color: #fff;
+}
+
+.stockin-quantity-control input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 8px;
+    border: 1px solid var(--s-dark);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--s-text);
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+.stockin-quantity-control input::-webkit-outer-spin-button,
+.stockin-quantity-control input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.stockin-quantity-control input:focus {
+    border-color: var(--s-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+/* Prices */
+
+.stockin-price-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.stockin-money-input {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 50px;
+    padding: 0 12px;
+    border: 1px solid var(--s-border);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.stockin-money-input:focus-within {
+    border-color: var(--s-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.stockin-money-input span {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--s-text);
+}
+
+.stockin-money-input input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--s-text);
+    font-size: 16px;
+    font-weight: 800;
+    -moz-appearance: textfield;
+}
+
+.stockin-money-input input::-webkit-outer-spin-button,
+.stockin-money-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* New stock */
+
+.stockin-new-stock {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--s-gray);
+}
+
+.stockin-new-stock span {
+    font-size: 14px;
+    color: var(--s-muted);
+}
+
+.stockin-new-stock strong {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--s-green);
+}
+
+/* ---------- Purchase details ---------- */
+
+.stockin-details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--s-border);
+    border-radius: 14px;
+    background: var(--s-card);
+}
+
+.stockin-section-title {
+    margin: 0 0 2px;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.stockin-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stockin-form-field label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--s-slate);
+}
+
+.stockin-form-field input,
+.stockin-form-field textarea {
+    width: 100%;
+    padding: 0 16px;
+    border: 1px solid var(--s-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--s-text);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stockin-form-field input {
+    height: 54px;
+}
+
+.stockin-form-field textarea {
+    min-height: 90px;
+    padding: 14px 16px;
+    line-height: 1.4;
+    resize: vertical;
+}
+
+.stockin-form-field input::placeholder,
+.stockin-form-field textarea::placeholder {
+    color: #9aa5b5;
+    font-weight: 400;
+}
+
+.stockin-form-field input:focus,
+.stockin-form-field textarea:focus {
+    border-color: var(--s-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+/* ---------- Summary ---------- */
+
+.stockin-summary-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 20px 22px;
+    border-radius: 16px;
+    background: var(--s-dark);
+    color: #fff;
+}
+
+.stockin-summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.stockin-summary-row span {
+    font-size: 15px;
+    color: #d5d9e0;
+}
+
+.stockin-summary-row strong {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.stockin-summary-row:last-child strong {
+    font-size: 24px;
+}
+
+/* ---------- Messages ---------- */
+
+.stockin-error-message {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--s-red-soft);
+    border: 1px solid #ffa8a8;
+    color: var(--s-red);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.stockin-success-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--s-green-soft);
+    border: 1px solid #a9dbb4;
+    color: var(--s-green);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.stockin-success-message svg {
+    flex-shrink: 0;
+}
+
+/* ---------- Save ---------- */
+
+.stockin-save-section {
+    display: flex;
+}
+
+.stockin-save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 60px;
+    border: 1px solid var(--s-dark);
+    border-radius: 12px;
+    background: var(--s-orange);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.stockin-save-button:active:not(:disabled) {
+    background: var(--s-orange-dark);
+}
+
+.stockin-save-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .stockin-page { padding-left: 16px; padding-right: 16px; }
+    .stockin-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .stockin-title { font-size: 23px; }
+    .stockin-price-grid { gap: 8px; }
+    .stockin-details-section { padding: 16px; }
+}

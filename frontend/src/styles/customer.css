@@ -1,0 +1,621 @@
+/* ==========================================
+   CUSTOMERS & CREDIT PAGE — customers.css
+   Uses only the classNames already in Customers.jsx
+   Colors match home.css / inventory.css / payment.css
+   ========================================== */
+
+.customers-page,
+.customers-loading {
+    --c-bg: #f6f7f9;
+    --c-card: #ffffff;
+    --c-border: #dfe3e8;
+    --c-text: #101216;
+    --c-muted: #64748b;
+    --c-slate: #5b6b86;
+    --c-orange: #d9480f;
+    --c-orange-dark: #b93a09;
+    --c-peach: #ffe6cf;
+    --c-peach-soft: #ffe8d1;
+    --c-dark: #111317;
+    --c-green: #2b8a3e;
+    --c-red: #c92a2a;
+    --c-red-soft: #ffe3e3;
+    --c-amber: #f59f00;
+    --c-gray: #eceff4;
+}
+
+.customers-page *,
+.customers-loading * {
+    box-sizing: border-box;
+}
+
+.customers-page button,
+.customers-page input {
+    font-family: inherit;
+}
+
+/* ---------- Loading ---------- */
+
+.customers-loading {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--c-bg);
+    color: var(--c-muted);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* ---------- Page shell ---------- */
+
+.customers-page {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 120px;
+    background: var(--c-bg);
+    color: var(--c-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Header ---------- */
+
+.customers-header {
+    margin: 0 -20px 22px;
+    padding: 14px 20px 16px;
+    border-bottom: 1px solid var(--c-border);
+}
+
+.customers-title {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+/* ---------- Summary card ---------- */
+
+.customers-summary-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding: 24px 22px;
+    border-radius: 16px;
+    background: var(--c-dark);
+    color: #fff;
+}
+
+.customers-summary-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.customers-summary-label {
+    margin-bottom: 12px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    color: var(--c-peach);
+}
+
+.customers-summary-amount {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #fff;
+}
+
+.customers-summary-description {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #e6e9ee;
+}
+
+.customers-summary-icon {
+    flex-shrink: 0;
+    color: var(--c-peach);
+}
+
+/* ---------- Search ---------- */
+
+.customers-search-section {
+    margin-bottom: 26px;
+}
+
+.customers-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.customers-search-icon {
+    position: absolute;
+    left: 14px;
+    color: var(--c-slate);
+    pointer-events: none;
+}
+
+.customers-search-input {
+    width: 100%;
+    height: 56px;
+    padding: 0 52px 0 46px;
+    border: 1px solid var(--c-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--c-text);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.customers-search-input::placeholder {
+    color: #8b97a8;
+    font-weight: 400;
+}
+
+.customers-search-input:focus {
+    border-color: var(--c-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.customers-filter-trigger {
+    position: absolute;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--c-slate);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.customers-filter-trigger:active {
+    background: var(--c-gray);
+}
+
+/* ---------- Filter options ---------- */
+
+.customers-filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.customers-filter-option {
+    height: 42px;
+    padding: 0 16px;
+    border: 1px solid var(--c-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--c-text);
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.customers-filter-option.customers-filter-selected {
+    background: var(--c-dark);
+    border-color: var(--c-dark);
+    color: #fff;
+}
+
+/* ---------- Ledger heading ---------- */
+
+.customers-ledger-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.customers-ledger-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.customers-add-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: var(--c-orange);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* ---------- Error ---------- */
+
+.customers-error-message {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--c-red-soft);
+    border: 1px solid #ffa8a8;
+    color: var(--c-red);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ---------- Ledger list ---------- */
+
+.customers-ledger-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.customers-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 34px 20px;
+    border: 1px dashed var(--c-border);
+    border-radius: 14px;
+    background: var(--c-card);
+    color: var(--c-muted);
+}
+
+.customers-empty p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.customers-ledger-card {
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    background: var(--c-card);
+    overflow: hidden;
+}
+
+.customers-ledger-card:first-child {
+    border-color: var(--c-orange);
+}
+
+.customers-card-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 16px 14px;
+    border: none;
+    background: transparent;
+    color: var(--c-text);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.customers-avatar {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--c-peach);
+    color: var(--c-orange);
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.customers-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.customers-card-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.customers-card-meta {
+    margin: 3px 0 0;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--c-muted);
+}
+
+.customers-card-lifetime {
+    margin: 4px 0 0;
+    font-size: 12.5px;
+    color: var(--c-muted);
+}
+
+.customers-card-credit {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.customers-balance {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.customers-balance-pending,
+.customers-balance-overdue {
+    color: var(--c-red);
+}
+
+.customers-balance-clear {
+    color: var(--c-green);
+}
+
+.customers-status {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.customers-status-pending {
+    background: var(--c-amber);
+    color: var(--c-dark);
+}
+
+.customers-status-overdue {
+    background: var(--c-red);
+    color: #fff;
+}
+
+.customers-status-clear {
+    background: var(--c-green);
+    color: #fff;
+}
+
+/* ---------- Expanded details ---------- */
+
+.customers-expanded-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px 16px 16px;
+    border-top: 1px solid #edf0f3;
+}
+
+.customers-expanded-details p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--c-muted);
+}
+
+.customers-expanded-details p svg {
+    flex-shrink: 0;
+    color: var(--c-orange);
+}
+
+.customers-individual-reminder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    margin-top: 4px;
+    border: 1px solid var(--c-dark);
+    border-radius: 12px;
+    background: var(--c-orange);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.customers-individual-reminder:active {
+    background: var(--c-orange-dark);
+}
+
+.customers-view-credit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 48px;
+    border: 1px solid var(--c-dark);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--c-text);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.customers-view-credit-button svg {
+    flex-shrink: 0;
+    color: var(--c-orange);
+}
+
+.customers-view-credit-button:active {
+    background: var(--c-gray);
+}
+
+/* ---------- Payment reminder ---------- */
+
+.customers-reminder-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    padding: 16px;
+    border-radius: 14px;
+    background: var(--c-peach-soft);
+}
+
+.customers-reminder-icon {
+    flex-shrink: 0;
+    color: var(--c-orange);
+}
+
+.customers-reminder-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.customers-reminder-content h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--c-orange);
+}
+
+.customers-reminder-content p {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--c-orange);
+}
+
+.customers-reminder-send {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--c-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.customers-reminder-send:active {
+    background: rgba(217, 72, 15, 0.12);
+}
+
+/* ---------- Credit report ---------- */
+
+.customers-report-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 58px;
+    border: 1px solid var(--c-dark);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--c-text);
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.customers-report-button:active {
+    background: var(--c-gray);
+}
+
+.customers-report-panel {
+    margin-top: 16px;
+    padding: 20px;
+    border: 1px solid var(--c-border);
+    border-radius: 14px;
+    background: var(--c-card);
+}
+
+.customers-report-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.customers-report-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.customers-report-header button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid var(--c-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--c-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.customers-report-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #edf0f3;
+}
+
+.customers-report-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.customers-report-row span {
+    font-size: 14px;
+    color: var(--c-muted);
+}
+
+.customers-report-row strong {
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--c-text);
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .customers-page { padding-left: 16px; padding-right: 16px; }
+    .customers-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .customers-title { font-size: 26px; }
+    .customers-summary-amount { font-size: 34px; }
+    .customers-summary-icon { width: 38px; height: 38px; }
+    .customers-card-main { gap: 10px; padding: 14px 12px; }
+    .customers-avatar { width: 44px; height: 44px; font-size: 20px; }
+}

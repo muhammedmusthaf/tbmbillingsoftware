@@ -1,0 +1,727 @@
+/* ==========================================
+   CUSTOMER CREDIT PAGE — credit.css
+   Uses only the classNames already in CustomerCredit.jsx
+   Colors match home.css / customers.css / payment.css
+   ========================================== */
+
+.credit-page,
+.credit-loading-page,
+.credit-error-page {
+    --k-bg: #f6f7f9;
+    --k-card: #ffffff;
+    --k-border: #dfe3e8;
+    --k-text: #101216;
+    --k-muted: #64748b;
+    --k-slate: #5b6b86;
+    --k-orange: #d9480f;
+    --k-orange-dark: #b93a09;
+    --k-peach: #ffe6cf;
+    --k-peach-soft: #ffe8d1;
+    --k-dark: #111317;
+    --k-green: #2b8a3e;
+    --k-green-soft: #e3f4e7;
+    --k-red: #c92a2a;
+    --k-red-soft: #ffe3e3;
+    --k-amber: #f59f00;
+    --k-gray: #eceff4;
+}
+
+.credit-page *,
+.credit-error-page * {
+    box-sizing: border-box;
+}
+
+.credit-page button,
+.credit-page input,
+.credit-page select,
+.credit-page textarea,
+.credit-error-page button {
+    font-family: inherit;
+}
+
+/* ---------- Loading / error ---------- */
+
+.credit-loading-page,
+.credit-error-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--k-bg);
+    color: var(--k-muted);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.credit-error-page p {
+    margin: 0;
+    color: var(--k-red);
+}
+
+.credit-error-page button {
+    height: 48px;
+    padding: 0 22px;
+    border: 1px solid var(--k-dark);
+    border-radius: 12px;
+    background: var(--k-orange);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* ---------- Page shell ---------- */
+
+.credit-page {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 120px;
+    background: var(--k-bg);
+    color: var(--k-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Header ---------- */
+
+.credit-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 -20px 22px;
+    padding: 14px 20px 16px;
+    border-bottom: 1px solid var(--k-border);
+}
+
+.credit-back-button {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--k-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--k-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.credit-back-button:active {
+    background: var(--k-gray);
+}
+
+.credit-header-info {
+    min-width: 0;
+}
+
+.credit-header-info h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.credit-header-info p {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    color: var(--k-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ---------- Summary card ---------- */
+
+.credit-summary-card {
+    margin-bottom: 16px;
+    padding: 24px 22px;
+    border-radius: 16px;
+    background: var(--k-dark);
+    color: #fff;
+}
+
+.credit-summary-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    color: var(--k-peach);
+}
+
+.credit-summary-heading svg {
+    flex-shrink: 0;
+}
+
+.credit-summary-heading span {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+}
+
+.credit-outstanding-amount {
+    display: block;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #fff;
+}
+
+.credit-summary-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.credit-summary-details > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.credit-summary-details span {
+    font-size: 13px;
+    color: #d5d9e0;
+}
+
+.credit-summary-details strong {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fff;
+}
+
+/* ---------- Customer card ---------- */
+
+.credit-customer-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 26px;
+    padding: 16px;
+    border: 1px solid var(--k-border);
+    border-radius: 14px;
+    background: var(--k-card);
+}
+
+.credit-customer-avatar {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--k-peach);
+    color: var(--k-orange);
+    font-size: 23px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.credit-customer-info {
+    min-width: 0;
+}
+
+.credit-customer-info h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.credit-customer-info p {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    line-height: 1.35;
+    color: var(--k-muted);
+}
+
+/* ---------- Section headings ---------- */
+
+.credit-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.credit-section-heading svg {
+    flex-shrink: 0;
+    color: var(--k-orange);
+}
+
+.credit-section-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.credit-section-heading span {
+    margin-left: auto;
+    min-width: 28px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--k-peach-soft);
+    color: var(--k-orange);
+    font-size: 14px;
+    font-weight: 800;
+    text-align: center;
+}
+
+/* ---------- Unpaid invoices ---------- */
+
+.credit-invoices-section {
+    margin-bottom: 26px;
+}
+
+.credit-empty-invoices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 30px 20px;
+    border: 1px dashed var(--k-border);
+    border-radius: 14px;
+    background: var(--k-card);
+    color: var(--k-green);
+}
+
+.credit-empty-invoices p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--k-muted);
+}
+
+.credit-invoice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.credit-invoice-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--k-border);
+    border-radius: 14px;
+    background: var(--k-card);
+    color: var(--k-text);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.credit-invoice-card.credit-invoice-selected {
+    border-color: var(--k-orange);
+    background: var(--k-peach-soft);
+}
+
+.credit-invoice-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.credit-invoice-info strong {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.credit-invoice-info span {
+    font-size: 13px;
+    color: var(--k-muted);
+}
+
+.credit-invoice-info .credit-invoice-due {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.credit-invoice-due svg {
+    flex-shrink: 0;
+}
+
+.credit-invoice-amount {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.credit-invoice-amount strong {
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--k-red);
+}
+
+.credit-status-pending,
+.credit-status-overdue {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.credit-status-pending {
+    background: var(--k-amber);
+    color: var(--k-dark);
+}
+
+.credit-status-overdue {
+    background: var(--k-red);
+    color: #fff;
+}
+
+/* ---------- Receive payment ---------- */
+
+.credit-payment-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--k-border);
+    border-radius: 14px;
+    background: var(--k-card);
+}
+
+.credit-payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.credit-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.credit-field label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--k-slate);
+}
+
+.credit-field select,
+.credit-field input,
+.credit-field textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 0 14px;
+    border: 1px solid var(--k-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--k-text);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.credit-field select,
+.credit-field input {
+    height: 54px;
+}
+
+.credit-field textarea {
+    min-height: 90px;
+    padding: 14px;
+    line-height: 1.4;
+    resize: vertical;
+}
+
+.credit-field select {
+    padding-right: 40px;
+    font-weight: 700;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+}
+
+.credit-field input::placeholder,
+.credit-field textarea::placeholder {
+    color: #9aa5b5;
+    font-weight: 400;
+}
+
+.credit-field select:focus,
+.credit-field input:focus,
+.credit-field textarea:focus {
+    border-color: var(--k-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+/* Selected invoice balance */
+
+.credit-selected-balance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--k-gray);
+}
+
+.credit-selected-balance span {
+    font-size: 14px;
+    color: var(--k-muted);
+}
+
+.credit-selected-balance strong {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--k-red);
+}
+
+/* Money input */
+
+.credit-money-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 58px;
+    padding: 0 16px;
+    border: 1px solid var(--k-dark);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.credit-money-input:focus-within {
+    border-color: var(--k-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.credit-money-input span {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--k-text);
+}
+
+.credit-field .credit-money-input input {
+    flex: 1;
+    width: auto;
+    height: 100%;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+    font-size: 22px;
+    font-weight: 800;
+    -moz-appearance: textfield;
+}
+
+.credit-field .credit-money-input input:focus {
+    box-shadow: none;
+}
+
+.credit-money-input input::-webkit-outer-spin-button,
+.credit-money-input input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Method buttons */
+
+.credit-method-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 6px;
+    border-radius: 14px;
+    background: var(--k-gray);
+}
+
+.credit-method-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 50px;
+    padding: 0 8px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--k-slate);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.credit-method-button.credit-method-active {
+    background: var(--k-dark);
+    color: #fff;
+}
+
+/* Submit */
+
+.credit-submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 60px;
+    margin-top: 4px;
+    border: 1px solid var(--k-dark);
+    border-radius: 12px;
+    background: var(--k-orange);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.credit-submit-button:active:not(:disabled) {
+    background: var(--k-orange-dark);
+}
+
+.credit-submit-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* ---------- Messages ---------- */
+
+.credit-error-message {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--k-red-soft);
+    border: 1px solid #ffa8a8;
+    color: var(--k-red);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.credit-success-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--k-green-soft);
+    border: 1px solid #a9dbb4;
+    color: var(--k-green);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.credit-success-message svg {
+    flex-shrink: 0;
+}
+
+/* ---------- Payment history ---------- */
+
+.credit-history-section {
+    margin-bottom: 10px;
+}
+
+.credit-empty-history {
+    padding: 28px 20px;
+    border: 1px dashed var(--k-border);
+    border-radius: 14px;
+    background: var(--k-card);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--k-muted);
+}
+
+.credit-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.credit-history-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid var(--k-border);
+    border-radius: 14px;
+    background: var(--k-card);
+}
+
+.credit-history-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--k-green-soft);
+    color: var(--k-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.credit-history-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.credit-history-info strong {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.credit-history-info span {
+    font-size: 12.5px;
+    color: var(--k-muted);
+    word-break: break-word;
+}
+
+.credit-history-amount {
+    flex-shrink: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--k-green);
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .credit-page { padding-left: 16px; padding-right: 16px; }
+    .credit-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .credit-header-info h1 { font-size: 23px; }
+    .credit-outstanding-amount { font-size: 34px; }
+    .credit-payment-section { padding: 16px; }
+}

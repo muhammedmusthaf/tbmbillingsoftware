@@ -1,0 +1,258 @@
+/* ==========================================
+   ADD CUSTOMER PAGE — addCustomer.css
+   Uses only the classNames already in AddCustomer.jsx
+   Colors match home.css / addProduct.css / customers.css
+   ========================================== */
+
+.addcustomer-page {
+    --ac-bg: #f6f7f9;
+    --ac-card: #ffffff;
+    --ac-border: #dfe3e8;
+    --ac-text: #101216;
+    --ac-muted: #64748b;
+    --ac-slate: #5b6b86;
+    --ac-orange: #d9480f;
+    --ac-orange-dark: #b93a09;
+    --ac-peach-soft: #ffe8d1;
+    --ac-dark: #111317;
+    --ac-red: #c92a2a;
+    --ac-red-soft: #ffe3e3;
+    --ac-gray: #eceff4;
+
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 120px;
+    background: var(--ac-bg);
+    color: var(--ac-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.addcustomer-page *,
+.addcustomer-page *::before,
+.addcustomer-page *::after {
+    box-sizing: border-box;
+}
+
+.addcustomer-page button,
+.addcustomer-page input,
+.addcustomer-page textarea {
+    font-family: inherit;
+}
+
+/* ---------- Header ---------- */
+
+.addcustomer-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 0 -20px 22px;
+    padding: 14px 20px 16px;
+    border-bottom: 1px solid var(--ac-border);
+}
+
+.addcustomer-back-button {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--ac-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ac-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.addcustomer-back-button:active {
+    background: var(--ac-gray);
+}
+
+.addcustomer-header-info {
+    min-width: 0;
+}
+
+.addcustomer-title {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.addcustomer-subtitle {
+    margin: 3px 0 0;
+    font-size: 13.5px;
+    color: var(--ac-muted);
+}
+
+/* ---------- Form / sections ---------- */
+
+.addcustomer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.addcustomer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid var(--ac-border);
+    border-radius: 14px;
+    background: var(--ac-card);
+}
+
+.addcustomer-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.addcustomer-section-heading svg {
+    flex-shrink: 0;
+    color: var(--ac-orange);
+}
+
+.addcustomer-section-heading h2,
+.addcustomer-section-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* ---------- Fields ---------- */
+
+.addcustomer-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.addcustomer-field label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--ac-slate);
+}
+
+.addcustomer-field input,
+.addcustomer-field textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 0 14px;
+    border: 1px solid var(--ac-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ac-text);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.addcustomer-field input {
+    height: 54px;
+}
+
+.addcustomer-field textarea {
+    min-height: 90px;
+    padding: 14px;
+    line-height: 1.4;
+    resize: vertical;
+}
+
+.addcustomer-field input::placeholder,
+.addcustomer-field textarea::placeholder {
+    color: #9aa5b5;
+    font-weight: 400;
+}
+
+.addcustomer-field input:focus,
+.addcustomer-field textarea:focus {
+    border-color: var(--ac-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+/* ---------- Credit info ---------- */
+
+.addcustomer-credit-info {
+    padding: 16px 18px;
+    border-radius: 14px;
+    background: var(--ac-peach-soft);
+}
+
+.addcustomer-credit-info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--ac-orange);
+}
+
+.addcustomer-credit-info p {
+    margin: 6px 0 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--ac-orange);
+}
+
+/* ---------- Error ---------- */
+
+.addcustomer-error-message {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--ac-red-soft);
+    border: 1px solid #ffa8a8;
+    color: var(--ac-red);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ---------- Save ---------- */
+
+.addcustomer-save-section {
+    display: flex;
+}
+
+.addcustomer-save-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    height: 60px;
+    border: 1px solid var(--ac-dark);
+    border-radius: 12px;
+    background: var(--ac-orange);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.addcustomer-save-button:active:not(:disabled) {
+    background: var(--ac-orange-dark);
+}
+
+.addcustomer-save-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .addcustomer-page { padding-left: 16px; padding-right: 16px; }
+    .addcustomer-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .addcustomer-title { font-size: 23px; }
+    .addcustomer-section { padding: 16px; }
+}

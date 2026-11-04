@@ -63,20 +63,20 @@ const OwnerBottomNav = () => {
         <Boxes size={23} />
         <span>Stock</span>
       </button>
-
-      <button
-        type="button"
-        className={`owner-nav-item ${
-          isActive("/workers") ||
-          isActive("/customers")
-            ? "owner-nav-active"
-            : ""
-        }`}
-        onClick={() => navigate("/workers")}
-      >
-        <Users size={23} />
-        <span>People</span>
-      </button>
+<button
+  type="button"
+  className={`owner-bottom-nav-item ${
+    isActive("people")
+      ? "owner-bottom-nav-active"
+      : ""
+  }`}
+  onClick={() => navigate("/customers")}
+>
+  <Users size={23} />
+  <span className="owner-bottom-nav-label">
+    People
+  </span>
+</button>
 
       <button
         type="button"

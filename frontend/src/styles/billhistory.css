@@ -1,0 +1,638 @@
+/* ==========================================
+   BILL HISTORY PAGE — billHistory.css
+   Uses only the classNames already in BillHistory.jsx
+   Colors match home.css / customers.css / invoice.css
+   ========================================== */
+
+.billhistory-page {
+    --h-bg: #f6f7f9;
+    --h-card: #ffffff;
+    --h-border: #dfe3e8;
+    --h-text: #101216;
+    --h-muted: #64748b;
+    --h-slate: #5b6b86;
+    --h-orange: #d9480f;
+    --h-orange-dark: #b93a09;
+    --h-peach-soft: #ffe8d1;
+    --h-dark: #111317;
+    --h-green: #2b8a3e;
+    --h-red: #c92a2a;
+    --h-red-soft: #ffe3e3;
+    --h-amber: #f59f00;
+    --h-gray: #eceff4;
+
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 14px 20px 120px;
+    background: var(--h-bg);
+    color: var(--h-text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.billhistory-page *,
+.billhistory-page *::before,
+.billhistory-page *::after {
+    box-sizing: border-box;
+}
+
+.billhistory-page button,
+.billhistory-page input,
+.billhistory-page select {
+    font-family: inherit;
+}
+
+/* ---------- Header ---------- */
+
+.billhistory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin: 0 -20px 22px;
+    padding: 14px 20px 16px;
+    border-bottom: 1px solid var(--h-border);
+}
+
+.billhistory-header-info {
+    min-width: 0;
+}
+
+.billhistory-header-info h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.billhistory-header-info p {
+    margin: 4px 0 0;
+    font-size: 13.5px;
+    color: var(--h-muted);
+}
+
+.billhistory-refresh-button {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid var(--h-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--h-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.billhistory-refresh-button:active:not(:disabled) {
+    background: var(--h-gray);
+}
+
+.billhistory-refresh-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ---------- Summary ---------- */
+
+.billhistory-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.billhistory-summary-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid var(--h-border);
+    border-radius: 14px;
+    background: var(--h-card);
+}
+
+.billhistory-summary-card span {
+    font-size: 13px;
+    color: var(--h-muted);
+}
+
+.billhistory-summary-card strong {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.2;
+    word-break: break-word;
+    color: var(--h-text);
+}
+
+/* Total bills: full-width dark strip */
+
+.billhistory-summary-card:first-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-color: var(--h-dark);
+    background: var(--h-dark);
+}
+
+.billhistory-summary-card:first-child span {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffe6cf;
+}
+
+.billhistory-summary-card:first-child strong {
+    font-size: 32px;
+    color: #fff;
+}
+
+/* Outstanding value in red */
+
+.billhistory-summary-card:last-child strong {
+    color: var(--h-red);
+}
+
+/* ---------- Search ---------- */
+
+.billhistory-search-section {
+    margin-bottom: 16px;
+}
+
+.billhistory-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.billhistory-search-box > svg {
+    position: absolute;
+    left: 14px;
+    color: var(--h-slate);
+    pointer-events: none;
+}
+
+.billhistory-search-input {
+    width: 100%;
+    height: 56px;
+    padding: 0 52px 0 46px;
+    border: 1px solid var(--h-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--h-text);
+    font-size: 16px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.billhistory-search-input::placeholder {
+    color: #8b97a8;
+    font-weight: 400;
+}
+
+.billhistory-search-input:focus {
+    border-color: var(--h-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.billhistory-filter-trigger {
+    position: absolute;
+    right: 8px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--h-slate);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.billhistory-filter-trigger:active {
+    background: var(--h-gray);
+}
+
+/* ---------- Filter panel ---------- */
+
+.billhistory-filter-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid var(--h-border);
+    border-radius: 14px;
+    background: var(--h-card);
+}
+
+.billhistory-filter-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.billhistory-filter-heading h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.billhistory-filter-heading button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid var(--h-border);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--h-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.billhistory-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.billhistory-filter-field label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--h-slate);
+}
+
+.billhistory-filter-field label svg {
+    flex-shrink: 0;
+    color: var(--h-orange);
+}
+
+.billhistory-filter-field select,
+.billhistory-filter-field input {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    padding: 0 14px;
+    border: 1px solid var(--h-border);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--h-text);
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.billhistory-filter-field select {
+    padding-right: 40px;
+    font-weight: 700;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+}
+
+.billhistory-filter-field select:focus,
+.billhistory-filter-field input:focus {
+    border-color: var(--h-orange);
+    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+}
+
+.billhistory-date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.billhistory-clear-filters {
+    height: 46px;
+    border: 1px solid var(--h-red);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--h-red);
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.billhistory-clear-filters:active {
+    background: var(--h-red-soft);
+}
+
+/* ---------- List heading ---------- */
+
+.billhistory-list-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.billhistory-list-heading h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.billhistory-list-heading span {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--h-orange);
+}
+
+/* ---------- Error ---------- */
+
+.billhistory-error-message {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--h-red-soft);
+    border: 1px solid #ffa8a8;
+    color: var(--h-red);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ---------- List ---------- */
+
+.billhistory-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.billhistory-loading {
+    padding: 40px 0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--h-muted);
+}
+
+.billhistory-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 36px 20px;
+    border: 1px dashed var(--h-border);
+    border-radius: 14px;
+    background: var(--h-card);
+    color: var(--h-muted);
+}
+
+.billhistory-empty h3 {
+    margin: 12px 0 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--h-text);
+}
+
+.billhistory-empty p {
+    margin: 4px 0 0;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.billhistory-empty button {
+    height: 44px;
+    margin-top: 16px;
+    padding: 0 20px;
+    border: 1px solid var(--h-dark);
+    border-radius: 12px;
+    background: var(--h-orange);
+    color: #fff;
+    font-size: 14.5px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+/* ---------- Invoice card ---------- */
+
+.billhistory-invoice-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--h-border);
+    border-radius: 14px;
+    background: var(--h-card);
+}
+
+.billhistory-invoice-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.billhistory-invoice-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: var(--h-gray);
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.billhistory-invoice-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.billhistory-invoice-number {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.billhistory-invoice-date {
+    font-size: 13px;
+    color: var(--h-muted);
+}
+
+/* Status badge */
+
+.billhistory-status {
+    flex-shrink: 0;
+    align-self: flex-start;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: var(--h-muted);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+}
+
+.billhistory-status-paid {
+    background: var(--h-green);
+    color: #fff;
+}
+
+.billhistory-status-partial {
+    background: var(--h-amber);
+    color: var(--h-dark);
+}
+
+.billhistory-status-pending {
+    background: var(--h-red);
+    color: #fff;
+}
+
+/* Customer / amount */
+
+.billhistory-invoice-middle {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: var(--h-bg);
+}
+
+.billhistory-customer-info,
+.billhistory-amount-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.billhistory-amount-info {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.billhistory-customer-info span,
+.billhistory-amount-info span {
+    font-size: 12.5px;
+    color: var(--h-muted);
+}
+
+.billhistory-customer-info strong {
+    font-size: 15px;
+    font-weight: 800;
+    line-height: 1.3;
+    word-break: break-word;
+}
+
+.billhistory-amount-info strong {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--h-text);
+}
+
+/* Method / due */
+
+.billhistory-invoice-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.billhistory-invoice-meta span {
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--h-gray);
+    color: var(--h-slate);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+}
+
+.billhistory-invoice-meta .billhistory-credit-amount {
+    padding: 0;
+    background: transparent;
+    color: var(--h-red);
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+/* Actions */
+
+.billhistory-invoice-actions {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 10px;
+}
+
+.billhistory-view-button,
+.billhistory-print-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 46px;
+    padding: 0 10px;
+    border: 1px solid var(--h-dark);
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.billhistory-view-button {
+    background: var(--h-orange);
+    color: #fff;
+}
+
+.billhistory-view-button:active {
+    background: var(--h-orange-dark);
+}
+
+.billhistory-print-button {
+    background: #fff;
+    color: var(--h-text);
+}
+
+.billhistory-print-button:active {
+    background: var(--h-gray);
+}
+
+.billhistory-view-button svg,
+.billhistory-print-button svg {
+    flex-shrink: 0;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .billhistory-page { padding-left: 16px; padding-right: 16px; }
+    .billhistory-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .billhistory-header-info h1 { font-size: 26px; }
+    .billhistory-summary-card:first-child strong { font-size: 28px; }
+    .billhistory-filter-panel { padding: 16px; }
+    .billhistory-date-row { gap: 8px; }
+}
