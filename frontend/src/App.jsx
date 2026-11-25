@@ -14,7 +14,6 @@ import Payment from "./pages/Payment";
 import Invoices from "./pages/Invoices";
 import Inventory from "./pages/Inventory";
 
-import AddProduct from "./pages/Addproduct";
 import Customers from "./pages/Customers";
 import AddCustomer from "./pages/AddCustomer";
 import CustomerCredit from "./pages/CustomerCredit";
@@ -25,13 +24,15 @@ import More from "./pages/More";
 import Settings from "./pages/Settings";
 import Notifications from "./pages/Notifications";
 import Returns from "./pages/Returns";
-import StockIn from "./pages/StockIn";
+
 
 import WorkerDashboard from "./pages/WorkerDashboard";
 import WorkerBilling from "./pages/WorkerBilling";
 import WorkerPayment from "./pages/WorkerPayment";
 import WorkerInvoices from "./pages/WorkerInvoices";
 import WorkerBillhistory from "./pages/WorkerBillhistory";
+import AddProduct from "./pages/AddProduct";
+import StockIn from "./pages/StockIn";
 
 function getUser() {
   try {
