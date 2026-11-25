@@ -23,7 +23,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://tbmbillingsoftware-qtkl.vercel.app/",
+    origin: "https://tbmbillingsoftware.vercel.app/",
     credentials: true,
   })
 );
