@@ -1,0 +1,602 @@
+/* =========================================================
+   Worker Dashboard — mobile-first styles
+   File: src/styles/workerDashboard.css
+   ========================================================= */
+
+.worker-dashboard-page {
+    --w-bg: #f6f7f9;
+    --w-card: #ffffff;
+    --w-border: #dfe3e8;
+    --w-text: #101216;
+    --w-muted: #64748b;
+    --w-slate: #5b6b86;
+    --w-orange: #d9480f;
+    --w-orange-dark: #b93a09;
+    --w-peach: #ffe6cf;
+    --w-dark: #111317;
+    --w-green: #2b8a3e;
+    --w-green-dark: #237033;
+    --w-green-soft: #e3f4e7;
+    --w-red: #c92a2a;
+    --w-red-soft: #ffe3e3;
+    --w-gray: #eceff4;
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--w-bg);
+    color: var(--w-text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 18px calc(96px + env(safe-area-inset-bottom, 0px));
+    max-width: 480px;
+    margin: 0 auto;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.worker-dashboard-page *,
+.worker-dashboard-page *::before,
+.worker-dashboard-page *::after {
+    box-sizing: border-box;
+}
+
+.worker-dashboard-page h1,
+.worker-dashboard-page h2,
+.worker-dashboard-page h3,
+.worker-dashboard-page p {
+    margin: 0;
+}
+
+.worker-dashboard-page button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.worker-dashboard-page button:focus-visible {
+    outline: 2px solid var(--w-orange);
+    outline-offset: 2px;
+}
+
+/* ---------- Header ---------- */
+
+.worker-dashboard-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 -18px;
+    padding: calc(18px + env(safe-area-inset-top, 0px)) 18px 20px;
+    background: var(--w-dark);
+    color: #ffffff;
+    border-radius: 0 0 22px 22px;
+}
+
+.worker-dashboard-greeting {
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.65);
+    margin-bottom: 2px;
+}
+
+.worker-dashboard-header h1 {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    word-break: break-word;
+}
+
+.worker-dashboard-role {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: var(--w-peach);
+    color: var(--w-orange-dark);
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.worker-dashboard-logout {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    transition: background 0.15s ease;
+}
+
+.worker-dashboard-logout:active {
+    background: var(--w-red);
+    border-color: var(--w-red);
+}
+
+/* ---------- Date ---------- */
+
+.worker-dashboard-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 8px 14px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 999px;
+    color: var(--w-slate);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.worker-dashboard-date svg {
+    color: var(--w-orange);
+    flex-shrink: 0;
+}
+
+/* ---------- Welcome / New Bill card ---------- */
+
+.worker-dashboard-welcome-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-top: 16px;
+    padding: 20px;
+    border-radius: 20px;
+    background: var(--w-orange);
+    color: #ffffff;
+    overflow: hidden;
+}
+
+.worker-dashboard-welcome-card > div:first-child {
+    min-width: 0;
+}
+
+.worker-dashboard-welcome-card span {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--w-peach);
+    margin-bottom: 4px;
+}
+
+.worker-dashboard-welcome-card h2 {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.worker-dashboard-welcome-card p {
+    margin-top: 6px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.worker-dashboard-welcome-card button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    height: 44px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 12px;
+    background: var(--w-dark);
+    color: #ffffff;
+    font-size: 14.5px;
+    font-weight: 700;
+    transition: transform 0.12s ease, background 0.15s ease;
+}
+
+.worker-dashboard-welcome-card button:active {
+    transform: scale(0.97);
+    background: #000000;
+}
+
+.worker-dashboard-welcome-icon {
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    display: grid;
+    place-items: center;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+}
+
+/* ---------- Section headings ---------- */
+
+.worker-dashboard-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 26px 0 12px;
+}
+
+.worker-dashboard-section-heading h2 {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.worker-dashboard-section-heading p {
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: var(--w-muted);
+}
+
+.worker-dashboard-refresh {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--w-border);
+    border-radius: 11px;
+    background: var(--w-card);
+    color: var(--w-slate);
+}
+
+.worker-dashboard-refresh:active:not(:disabled) {
+    background: var(--w-gray);
+}
+
+.worker-dashboard-refresh:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.worker-dashboard-view-all {
+    flex-shrink: 0;
+    height: 34px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 999px;
+    background: var(--w-peach);
+    color: var(--w-orange-dark);
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.worker-dashboard-view-all:active {
+    background: var(--w-orange);
+    color: #ffffff;
+}
+
+/* ---------- Spinner / Loading ---------- */
+
+.worker-dashboard-spinning {
+    animation: worker-dashboard-spin 0.9s linear infinite;
+}
+
+@keyframes worker-dashboard-spin {
+    to { transform: rotate(360deg); }
+}
+
+.worker-dashboard-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 36px 16px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 18px;
+    color: var(--w-muted);
+    font-size: 13.5px;
+}
+
+.worker-dashboard-loading svg {
+    color: var(--w-orange);
+}
+
+/* ---------- Stats ---------- */
+
+.worker-dashboard-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.worker-dashboard-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 18px;
+}
+
+.worker-dashboard-stat-card > div:last-child {
+    min-width: 0;
+}
+
+.worker-dashboard-stat-icon {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: var(--w-green-soft);
+    color: var(--w-green);
+}
+
+.worker-dashboard-stat-icon.worker-dashboard-bills-icon {
+    background: var(--w-peach);
+    color: var(--w-orange);
+}
+
+.worker-dashboard-stat-icon.worker-dashboard-total-icon {
+    background: var(--w-gray);
+    color: var(--w-slate);
+}
+
+.worker-dashboard-stat-card p {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--w-muted);
+}
+
+.worker-dashboard-stat-card h2 {
+    margin-top: 2px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+/* First card (sales) stands out */
+.worker-dashboard-stat-card:first-child {
+    background: var(--w-green-soft);
+    border-color: #c4e6cb;
+}
+
+.worker-dashboard-stat-card:first-child .worker-dashboard-stat-icon {
+    background: var(--w-green);
+    color: #ffffff;
+}
+
+.worker-dashboard-stat-card:first-child h2 {
+    color: var(--w-green-dark);
+    font-size: 28px;
+}
+
+/* ---------- Error ---------- */
+
+.worker-dashboard-error {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--w-red-soft);
+    border: 1px solid #f5b5b5;
+    border-radius: 14px;
+    color: var(--w-red);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.worker-dashboard-error button {
+    flex-shrink: 0;
+    height: 34px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--w-red);
+    color: #ffffff;
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+/* ---------- Quick actions ---------- */
+
+.worker-dashboard-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.worker-dashboard-action-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 16px;
+    text-align: left;
+    color: var(--w-text);
+    transition: transform 0.12s ease, border-color 0.15s ease;
+}
+
+.worker-dashboard-action-card:active {
+    transform: scale(0.98);
+    border-color: var(--w-orange);
+}
+
+.worker-dashboard-action-icon {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: var(--w-peach);
+    color: var(--w-orange);
+}
+
+.worker-dashboard-action-card:nth-child(2) .worker-dashboard-action-icon {
+    background: var(--w-dark);
+    color: #ffffff;
+}
+
+.worker-dashboard-action-card:nth-child(3) .worker-dashboard-action-icon {
+    background: var(--w-gray);
+    color: var(--w-slate);
+}
+
+.worker-dashboard-action-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.worker-dashboard-action-card p {
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: var(--w-muted);
+}
+
+/* ---------- Recent bills ---------- */
+
+.worker-dashboard-recent-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.worker-dashboard-recent-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 16px;
+}
+
+.worker-dashboard-recent-icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--w-gray);
+    color: var(--w-slate);
+}
+
+.worker-dashboard-recent-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.worker-dashboard-recent-info h3 {
+    font-size: 14.5px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.worker-dashboard-recent-info p {
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: var(--w-slate);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.worker-dashboard-recent-info span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 4px;
+    font-size: 11.5px;
+    color: var(--w-muted);
+}
+
+.worker-dashboard-recent-card > strong {
+    flex-shrink: 0;
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--w-green-dark);
+    white-space: nowrap;
+}
+
+/* ---------- Empty state ---------- */
+
+.worker-dashboard-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 34px 16px;
+    background: var(--w-card);
+    border: 1px dashed var(--w-border);
+    border-radius: 18px;
+    text-align: center;
+    color: var(--w-muted);
+}
+
+.worker-dashboard-empty svg {
+    color: var(--w-orange);
+    margin-bottom: 4px;
+}
+
+.worker-dashboard-empty h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--w-text);
+}
+
+.worker-dashboard-empty p {
+    font-size: 13px;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .worker-dashboard-page { padding-left: 16px; padding-right: 16px; }
+    .worker-dashboard-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .worker-dashboard-header h1 { font-size: 23px; }
+    .worker-dashboard-welcome-card { padding: 16px; }
+    .worker-dashboard-welcome-card h2 { font-size: 19px; }
+    .worker-dashboard-welcome-icon { width: 60px; height: 60px; }
+    .worker-dashboard-welcome-icon svg { width: 36px; height: 36px; }
+    .worker-dashboard-welcome-card button { padding: 0 14px; font-size: 13.5px; }
+    .worker-dashboard-stat-card:first-child h2 { font-size: 24px; }
+    .worker-dashboard-stat-card h2 { font-size: 21px; }
+    .worker-dashboard-recent-card > strong { font-size: 13.5px; }
+}
+
+/* ---------- Larger phones: stats in a row ---------- */
+
+@media (min-width: 420px) {
+    .worker-dashboard-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Sales card spans full width, other two sit side by side */
+    .worker-dashboard-stat-card:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .worker-dashboard-stat-card:not(:first-child) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .worker-dashboard-spinning { animation-duration: 2s; }
+    .worker-dashboard-page * { transition: none !important; }
+}

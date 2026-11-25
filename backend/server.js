@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-dotenv.config();
+import "dotenv/config";
+import cron from "node-cron";
 import express from 'express';
 import cors from 'cors';
 import connectDB from './config/db.js';
@@ -15,8 +15,8 @@ import report from './routes/report.route.js';
 import worker from './routes/worker.route.js';
 import setting from './routes/setting.route.js';
 import notification from './routes/notification.route.js';
-
-;
+import checkCreditDueNotifications from './utils/checkCreditDueNotifications.js';
+import processWhatsAppReminders from './services/whatsappReminder.service.js';
 
 
 const app = express();
@@ -30,6 +30,62 @@ app.use(
 app.use(express.json());
 
 await connectDB();
+// Automatically check overdue customer credits every day at 8 AM
+
+// Daily credit due notifications — 8 AM IST
+cron.schedule(
+  "0 8 * * *",
+  async () => {
+    console.log("Running daily credit due notification check...");
+
+    try {
+      await checkCreditDueNotifications();
+      console.log("Credit due notification check completed.");
+    } catch (error) {
+      console.error("Credit notification scheduler failed:", error);
+    }
+  },
+  {
+    timezone: "Asia/Kolkata",
+  }
+);
+
+// WhatsApp payment reminders — 8 PM IST
+cron.schedule(
+  "0 20 * * *",
+  async () => {
+    console.log("Running WhatsApp payment reminder service...");
+
+    try {
+      await processWhatsAppReminders();
+      console.log("WhatsApp reminder scheduler completed.");
+    } catch (error) {
+      console.error("WhatsApp reminder scheduler failed:", error);
+    }
+  },
+  {
+    timezone: "Asia/Kolkata",
+  }
+);
+
+ // Retry failed WhatsApp reminders every 15 minutes.
+ // retryOnly prevents this job from creating/sending new scheduled reminders.
+cron.schedule(
+  "*/15 * * * *",
+  async () => {
+    console.log("Checking WhatsApp reminders due for retry...");
+
+    try {
+      await processWhatsAppReminders({ retryOnly: true });
+      console.log("WhatsApp retry check completed.");
+    } catch (error) {
+      console.error("WhatsApp retry scheduler failed:", error);
+    }
+  },
+  {
+    timezone: "Asia/Kolkata",
+  }
+);
 app.use("/api/auth", auth);
 app.use("/api/products",product);
 app.use("/api/customers",customer);

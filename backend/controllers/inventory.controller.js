@@ -1,9 +1,13 @@
+
 import Product from "../models/Product.model.js";
 import StockTransaction from "../models/StockTransaction.model.js";
+import checkstocknotification from "../utils/checkstocknotification.js";
+import createNotification from "../utils/createnotification.js";
 
-
-
+// ==========================================
 // STOCK IN
+// ==========================================
+
 export const stockIn = async (req, res) => {
   try {
     const {
@@ -14,6 +18,7 @@ export const stockIn = async (req, res) => {
       notes,
     } = req.body;
 
+    // VALIDATION
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({
         message: "At least one product is required",
@@ -23,6 +28,7 @@ export const stockIn = async (req, res) => {
     const transactionItems = [];
     let totalPurchaseAmount = 0;
 
+    // PROCESS PRODUCTS
     for (const item of items) {
       const {
         productId,
@@ -63,18 +69,18 @@ export const stockIn = async (req, res) => {
       const newStock =
         Number(previousStock) + Number(quantity);
 
-      // Update current product stock
+      // UPDATE STOCK
       product.stock = newStock;
 
-      // Update latest purchase price
+      // UPDATE PURCHASE PRICE
       product.purchasePrice = Number(purchasePrice);
 
-      // Update selling price if provided
+      // UPDATE SELLING PRICE
       if (sellingPrice !== undefined) {
         product.sellingPrice = Number(sellingPrice);
       }
 
-      // Update GST if provided
+      // UPDATE GST
       if (gst !== undefined) {
         product.gst = Number(gst);
       }
@@ -103,6 +109,7 @@ export const stockIn = async (req, res) => {
       });
     }
 
+    // CREATE STOCK TRANSACTION
     const transaction = await StockTransaction.create({
       type: "stock_in",
       supplier: supplier || "",
@@ -114,6 +121,7 @@ export const stockIn = async (req, res) => {
       createdBy: req.user._id,
     });
 
+    // POPULATE TRANSACTION
     const populatedTransaction =
       await StockTransaction.findById(transaction._id)
         .populate(
@@ -125,20 +133,55 @@ export const stockIn = async (req, res) => {
           "name username role"
         );
 
+    // ==========================================
+    // CREATE STOCK-IN NOTIFICATION
+    // ==========================================
+
+    const productSummary = populatedTransaction.items
+      .map((item) => {
+        if (!item.product) {
+          return `${item.quantity} units`;
+        }
+
+        return `${item.product.name}: ${item.quantity} ${item.product.unit}`;
+      })
+      .join(", ");
+
+    await createNotification({
+      type: "stock_in",
+      title: "Stock Added Successfully",
+      message:
+        `${productSummary} added to inventory. ` +
+        `Total purchase amount: ₹${totalPurchaseAmount.toFixed(2)}`,
+      priority: "medium",
+      relatedId: transaction._id,
+      relatedModel: null,
+    });
+
+    // RESPONSE
     res.status(201).json({
       message: "Stock added successfully",
       transaction: populatedTransaction,
     });
+
   } catch (error) {
+    console.error("STOCK IN ERROR:", error);
+
     res.status(500).json({
       message: "Server error",
       error: error.message,
     });
   }
+  // CHECK STOCK STATUS AFTER STOCK-IN
+for (const item of transactionItems) {
+  await checkstocknotification(item.product);
+}
 };
 
-
+// ==========================================
 // GET STOCK TRANSACTION HISTORY
+// ==========================================
+
 export const getStockHistory = async (req, res) => {
   try {
     const transactions = await StockTransaction.find()
@@ -156,7 +199,10 @@ export const getStockHistory = async (req, res) => {
       count: transactions.length,
       transactions,
     });
+
   } catch (error) {
+    console.error("STOCK HISTORY ERROR:", error);
+
     res.status(500).json({
       message: "Server error",
       error: error.message,

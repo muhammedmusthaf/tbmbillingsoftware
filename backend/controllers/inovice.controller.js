@@ -4,6 +4,8 @@ import Customer from "../models/Customer.model.js";
 import generateInvoiceNumber from "../utils/generateInvoiceNumber.js";
 import Setting from "../models/Setting.model.js";
 import mongoose from "mongoose";
+import createNotification from "../utils/createnotification.js";
+import checkstocknotification from "../utils/checkstocknotification.js";
 
 
 // ==========================================
@@ -725,6 +727,30 @@ const showGST =
     // -----------------------------
 
     await session.commitTransaction();
+    // CHECK LOW STOCK AFTER BILLING
+   for (const item of validatedItems) {
+  await checkstocknotification(item.product._id);
+}
+    // -----------------------------
+// CREATE BILL NOTIFICATION
+// -----------------------------
+
+await createNotification({
+  type: "bill_generated",
+
+  title: "New Bill Generated",
+
+  message:
+    `Invoice ${invoiceNumber} for ${
+      customer?.name || "Walk-in Customer"
+    } has been generated successfully. Total: ₹${grandTotal.toFixed(2)}`,
+
+  priority: "medium",
+
+  relatedId: invoice._id,
+
+  relatedModel: "Invoice",
+});
 
 
     // -----------------------------
@@ -777,10 +803,8 @@ const showGST =
 // GET ALL INVOICES / BILL HISTORY
 // ==========================================
 
-export const getInvoices = async (
-  req,
-  res
-) => {
+
+export const getInvoices = async (req, res) => {
   try {
     const {
       search,
@@ -790,60 +814,35 @@ export const getInvoices = async (
       endDate,
     } = req.query;
 
-
     const filter = {};
 
-
-    // Payment method filter
+    // Workers can only see invoices they created.
+    // Owners can see all invoices.
+    if (req.user.role === "worker") {
+      filter.createdBy = req.user._id;
+    }
 
     if (paymentMethod) {
-      filter.paymentMethod =
-        paymentMethod;
+      filter.paymentMethod = paymentMethod;
     }
-
-
-    // Payment status filter
 
     if (paymentStatus) {
-      filter.paymentStatus =
-        paymentStatus;
+      filter.paymentStatus = paymentStatus;
     }
 
-
-    // Date range filter
-
-    if (
-      startDate ||
-      endDate
-    ) {
+    if (startDate || endDate) {
       filter.invoiceDate = {};
 
-
       if (startDate) {
-        filter.invoiceDate.$gte =
-          new Date(startDate);
+        filter.invoiceDate.$gte = new Date(startDate);
       }
-
 
       if (endDate) {
-        const end =
-          new Date(endDate);
-
-        end.setHours(
-          23,
-          59,
-          59,
-          999
-        );
-
-
-        filter.invoiceDate.$lte =
-          end;
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        filter.invoiceDate.$lte = end;
       }
     }
-
-
-    // Search invoice/customer/phone
 
     if (search) {
       filter.$or = [
@@ -853,14 +852,12 @@ export const getInvoices = async (
             $options: "i",
           },
         },
-
         {
           customerName: {
             $regex: search,
             $options: "i",
           },
         },
-
         {
           customerPhone: {
             $regex: search,
@@ -870,40 +867,19 @@ export const getInvoices = async (
       ];
     }
 
-
-    const invoices =
-      await Invoice.find(filter)
-
-        .populate(
-          "customer",
-          "name phone address creditBalance"
-        )
-
-        .populate(
-          "createdBy",
-          "name username role"
-        )
-
-        .sort({
-          invoiceDate: -1,
-        });
-
+    const invoices = await Invoice.find(filter)
+      .populate("customer", "name phone address creditBalance")
+      .populate("createdBy", "name username role")
+      .sort({ invoiceDate: -1 });
 
     res.status(200).json({
-      count:
-        invoices.length,
-
+      count: invoices.length,
       invoices,
     });
-  }
-
-  catch (error) {
+  } catch (error) {
     res.status(500).json({
-      message:
-        "Server error",
-
-      error:
-        error.message,
+      message: "Server error",
+      error: error.message,
     });
   }
 };

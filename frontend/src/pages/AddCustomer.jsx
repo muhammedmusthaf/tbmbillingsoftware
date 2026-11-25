@@ -10,7 +10,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import "../styles/addCustomer.css";
+import "../styles/addcustomer.css";
 import OwnerBottomNav from "../components/OwnerBottomnav";
 
 const AddCustomer = () => {
@@ -25,6 +25,7 @@ const AddCustomer = () => {
     email: "",
     gstin: "",
     notes: "",
+    whatsappConsent: false,
   });
 
   const [saving, setSaving] = useState(false);
@@ -75,6 +76,7 @@ const AddCustomer = () => {
         email: form.email.trim(),
         gstin: form.gstin.trim().toUpperCase(),
         notes: form.notes.trim(),
+        whatsappConsent: form.whatsappConsent,
       };
 
       await axios.post(
@@ -95,7 +97,7 @@ const AddCustomer = () => {
 
       setError(
         err.response?.data?.message ||
-          "Unable to add customer."
+        "Unable to add customer."
       );
     } finally {
       setSaving(false);
@@ -234,6 +236,37 @@ const AddCustomer = () => {
               onChange={handleChange}
             />
           </div>
+        </section>
+
+        {/* WHATSAPP REMINDERS */}
+        <section className="addcustomer-section addcustomer-whatsapp-section">
+          <h2 className="addcustomer-section-title">
+            WhatsApp payment reminders
+          </h2>
+
+          <label className="addcustomer-whatsapp-consent">
+            <input
+              type="checkbox"
+              name="whatsappConsent"
+              checked={form.whatsappConsent}
+              onChange={(e) =>
+                setForm((previous) => ({
+                  ...previous,
+                  whatsappConsent: e.target.checked,
+                }))
+              }
+            />
+
+            <span>
+              Customer agrees to receive automatic payment reminders
+              through WhatsApp.
+            </span>
+          </label>
+
+          <p className="addcustomer-consent-note">
+            Enable this only after the customer has agreed to receive
+            WhatsApp payment reminders.
+          </p>
         </section>
 
         {/* CREDIT INFO */}

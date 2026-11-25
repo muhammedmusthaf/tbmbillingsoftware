@@ -4,15 +4,15 @@ import Customer from "../models/Customer.model.js";
 // ADD CUSTOMER
 export const addCustomer = async (req, res) => {
   try {
-    const {
-      name,
-      phone,
-      address,
-      email,
-      gstin,
-      notes,
-    } = req.body;
-
+   const {
+  name,
+  phone,
+  address,
+  email,
+  gstin,
+  notes,
+  whatsappConsent,
+} = req.body;
     if (!name || !phone) {
       return res.status(400).json({
         message: "Name and phone number are required",
@@ -27,15 +27,24 @@ export const addCustomer = async (req, res) => {
       });
     }
 
-    const customer = await Customer.create({
-      name,
-      phone,
-      address,
-      email,
-      gstin,
-      notes,
-      createdBy: req.user._id,
-    });
+  const customer = await Customer.create({
+  name,
+  phone,
+  address,
+  email,
+  gstin,
+  notes,
+
+  whatsappConsent:
+    req.user.role === "owner" && whatsappConsent === true,
+
+  whatsappConsentDate:
+    req.user.role === "owner" && whatsappConsent === true
+      ? new Date()
+      : null,
+
+  createdBy: req.user._id,
+});
 
     res.status(201).json({
       message: "Customer added successfully",

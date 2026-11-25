@@ -1,99 +1,131 @@
-/* ==========================================
-   STOCK IN PAGE — stockIn.css
-   Uses only the classNames already in StockIn.jsx
-   Colors match home.css / billing.css / inventory.css
-   ========================================== */
+/* =========================================================
+   Stock In — mobile-first styles
+   File: src/styles/stockin.css
+
+   Design: orange + white, same palette as the owner pages.
+   ========================================================= */
 
 .stockin-page,
 .stockin-loading-page {
-    --s-bg: #f6f7f9;
-    --s-card: #ffffff;
-    --s-border: #dfe3e8;
-    --s-text: #101216;
-    --s-muted: #64748b;
-    --s-slate: #5b6b86;
-    --s-orange: #d9480f;
-    --s-orange-dark: #b93a09;
-    --s-peach: #ffe6cf;
-    --s-dark: #111317;
-    --s-green: #2b8a3e;
-    --s-green-soft: #e3f4e7;
-    --s-red: #c92a2a;
-    --s-red-soft: #ffe3e3;
-    --s-gray: #eceff4;
+    --o-bg: #f6f7f9;
+    --o-card: #ffffff;
+    --o-border: #dfe3e8;
+    --o-text: #101216;
+    --o-muted: #64748b;
+    --o-slate: #5b6b86;
+    --o-navy: #111317;
+    --o-orange: #d9480f;
+    --o-orange-dark: #b93a09;
+    --o-peach: #ffe6cf;
+    --o-green: #2b8a3e;
+    --o-green-dark: #237033;
+    --o-green-soft: #e3f4e7;
+    --o-red: #c92a2a;
+    --o-red-soft: #ffe3e3;
+    --o-gray: #eceff4;
+
+    box-sizing: border-box;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--o-text);
 }
 
 .stockin-page *,
-.stockin-loading-page * {
+.stockin-page *::before,
+.stockin-page *::after {
     box-sizing: border-box;
 }
 
-.stockin-page button,
-.stockin-page input,
-.stockin-page textarea,
-.stockin-loading-page button {
+/* ---------- Page ---------- */
+
+.stockin-page {
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 18px calc(100px + env(safe-area-inset-bottom, 0px));
+    background: var(--o-bg);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.stockin-page h1,
+.stockin-page h2,
+.stockin-page h3,
+.stockin-page p {
+    margin: 0;
+}
+
+.stockin-page button {
     font-family: inherit;
+    cursor: pointer;
+}
+
+.stockin-page button:focus-visible,
+.stockin-page input:focus-visible,
+.stockin-page textarea:focus-visible {
+    outline: 2px solid var(--o-orange);
+    outline-offset: 2px;
 }
 
 /* ---------- Loading ---------- */
 
 .stockin-loading-page {
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--s-bg);
+    padding: 24px;
+    background: var(--o-bg);
 }
 
 .stockin-loading-text {
-    font-size: 15px;
+    padding: 14px 22px;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 14px;
+    color: var(--o-muted);
+    font-size: 14px;
     font-weight: 600;
-    color: var(--s-muted);
+    animation: stockin-pulse 1.4s ease-in-out infinite;
 }
 
-/* ---------- Page shell ---------- */
-
-.stockin-page {
-    width: 100%;
-    max-width: 430px;
-    min-height: 100vh;
-    margin: 0 auto;
-    padding: 14px 20px 120px;
-    background: var(--s-bg);
-    color: var(--s-text);
-    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
+@keyframes stockin-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.55; }
 }
 
 /* ---------- Header ---------- */
 
 .stockin-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin: 0 -20px 22px;
-    padding: 14px 20px 16px;
-    border-bottom: 1px solid var(--s-border);
+    gap: 12px;
+    margin: 0 -18px;
+    padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 14px;
+    background: var(--o-navy);
+    color: #ffffff;
 }
 
 .stockin-back-button {
-    width: 44px;
-    height: 44px;
     flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
     padding: 0;
-    border: 1px solid var(--s-border);
-    border-radius: 12px;
-    background: #fff;
-    color: var(--s-text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    transition: transform 0.12s ease, background 0.15s ease;
 }
 
 .stockin-back-button:active {
-    background: var(--s-gray);
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .stockin-header-info {
@@ -101,32 +133,31 @@
 }
 
 .stockin-title {
-    margin: 0;
-    font-size: 26px;
+    font-size: 19px;
     font-weight: 800;
-    line-height: 1.15;
     letter-spacing: -0.01em;
+    line-height: 1.2;
 }
 
 .stockin-subtitle {
-    margin: 3px 0 0;
-    font-size: 13.5px;
-    color: var(--s-muted);
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* ---------- Search ---------- */
 
 .stockin-search-section {
     position: relative;
-    margin-bottom: 26px;
+    margin-top: 20px;
 }
 
 .stockin-field-label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 13px;
-    font-weight: 800;
-    color: var(--s-slate);
+    font-weight: 700;
+    color: var(--o-slate);
 }
 
 .stockin-search-box {
@@ -138,41 +169,40 @@
 .stockin-search-icon {
     position: absolute;
     left: 14px;
-    color: var(--s-slate);
+    color: var(--o-muted);
     pointer-events: none;
 }
 
 .stockin-search-input {
     width: 100%;
-    height: 56px;
-    padding: 0 16px 0 46px;
-    border: 1px solid var(--s-border);
-    border-radius: 12px;
-    background: #fff;
-    color: var(--s-text);
+    height: 52px;
+    padding: 0 16px 0 44px;
+    border: 1px solid var(--o-border);
+    border-radius: 16px;
+    background: var(--o-card);
+    color: var(--o-text);
+    font-family: inherit;
     font-size: 16px;
-    font-weight: 500;
-    outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: border-color 0.15s ease;
 }
 
 .stockin-search-input::placeholder {
-    color: #8b97a8;
-    font-weight: 400;
+    color: var(--o-muted);
 }
 
 .stockin-search-input:focus {
-    border-color: var(--s-orange);
-    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+    outline: none;
+    border-color: var(--o-orange);
 }
 
 .stockin-search-results {
-    margin-top: 10px;
-    border: 1px solid var(--s-border);
-    border-radius: 14px;
-    background: var(--s-card);
-    box-shadow: 0 8px 24px rgba(16, 18, 22, 0.08);
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
     overflow: hidden;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 18px;
 }
 
 .stockin-search-result {
@@ -182,11 +212,11 @@
     width: 100%;
     padding: 12px 14px;
     border: none;
-    border-bottom: 1px solid #edf0f3;
-    background: transparent;
-    color: var(--s-text);
+    border-bottom: 1px solid var(--o-gray);
+    background: var(--o-card);
+    color: var(--o-text);
     text-align: left;
-    cursor: pointer;
+    transition: background 0.12s ease;
 }
 
 .stockin-search-result:last-child {
@@ -194,25 +224,24 @@
 }
 
 .stockin-search-result:active {
-    background: var(--s-gray);
+    background: var(--o-peach);
 }
 
-.stockin-search-result > svg {
+.stockin-search-result > svg:last-child {
     flex-shrink: 0;
-    color: var(--s-orange);
+    color: var(--o-orange);
 }
 
 .stockin-search-product-icon {
+    flex-shrink: 0;
     width: 44px;
     height: 44px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    background: var(--s-gray);
-    color: var(--s-slate);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     overflow: hidden;
+    border-radius: 13px;
+    background: var(--o-gray);
+    color: var(--o-slate);
 }
 
 .stockin-search-product-image {
@@ -230,83 +259,96 @@
 }
 
 .stockin-search-product-info strong {
-    font-size: 15px;
-    font-weight: 800;
-    line-height: 1.3;
+    font-size: 14.5px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .stockin-search-product-info span {
-    font-size: 12.5px;
-    color: var(--s-muted);
+    font-size: 12px;
+    color: var(--o-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-/* ---------- Products section ---------- */
+/* ---------- Selected products ---------- */
 
 .stockin-items-section {
-    margin-bottom: 26px;
+    margin-top: 26px;
 }
 
 .stockin-section-heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .stockin-section-heading h2 {
-    margin: 0;
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 800;
-    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 .stockin-section-heading span {
-    font-size: 15px;
-    font-weight: 800;
-    color: var(--s-orange);
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--o-peach);
+    color: var(--o-orange-dark);
+    font-size: 12.5px;
+    font-weight: 700;
 }
+
+/* Empty state */
 
 .stockin-empty-products {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 8px;
+    padding: 34px 16px;
+    background: var(--o-card);
+    border: 1px dashed var(--o-border);
+    border-radius: 18px;
     text-align: center;
-    padding: 34px 20px;
-    border: 1px dashed var(--s-border);
-    border-radius: 14px;
-    background: var(--s-card);
-    color: var(--s-muted);
+}
+
+.stockin-empty-products svg {
+    color: var(--o-orange);
 }
 
 .stockin-empty-products h3 {
-    margin: 12px 0 0;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 800;
-    color: var(--s-text);
 }
 
 .stockin-empty-products p {
-    margin: 4px 0 0;
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: 13px;
+    color: var(--o-muted);
 }
 
-/* ---------- Product cards ---------- */
+/* Product card */
 
 .stockin-product-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
 }
 
 .stockin-product-card {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
+    min-width: 0;
     padding: 16px;
-    border: 1px solid var(--s-border);
-    border-radius: 14px;
-    background: var(--s-card);
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-top: 3px solid var(--o-orange);
+    border-radius: 18px;
 }
 
 .stockin-product-top {
@@ -317,23 +359,23 @@
 }
 
 .stockin-product-main {
+    flex: 1;
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: 12px;
-    min-width: 0;
 }
 
 .stockin-product-icon {
-    width: 50px;
-    height: 50px;
     flex-shrink: 0;
-    border-radius: 10px;
-    background: var(--s-peach);
-    color: var(--s-orange);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
     overflow: hidden;
+    border-radius: 14px;
+    background: var(--o-peach);
+    color: var(--o-orange);
 }
 
 .stockin-product-image {
@@ -347,79 +389,81 @@
 }
 
 .stockin-product-info h3 {
-    margin: 0;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
-    line-height: 1.3;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
 }
 
 .stockin-product-info p {
-    margin: 3px 0 0;
-    font-size: 13px;
-    color: var(--s-muted);
+    margin-top: 3px;
+    font-size: 12px;
+    color: var(--o-muted);
 }
 
 .stockin-remove-button {
-    width: 38px;
-    height: 38px;
     flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
     padding: 0;
-    border: 1px solid var(--s-border);
-    border-radius: 10px;
-    background: #fff;
-    color: var(--s-red);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    background: var(--o-red-soft);
+    color: var(--o-red);
+    transition: transform 0.12s ease;
 }
 
 .stockin-remove-button:active {
-    background: var(--s-red-soft);
+    transform: scale(0.94);
 }
 
-/* Fields inside product card */
+/* Product fields */
 
 .stockin-product-field {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     min-width: 0;
 }
 
 .stockin-product-field label {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--s-slate);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--o-slate);
 }
 
-/* Quantity control */
+/* Quantity stepper */
 
 .stockin-quantity-control {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     gap: 8px;
 }
 
 .stockin-quantity-control button {
+    flex-shrink: 0;
     width: 48px;
     height: 48px;
-    flex-shrink: 0;
+    display: grid;
+    place-items: center;
     padding: 0;
-    border: 1px solid var(--s-border);
-    border-radius: 10px;
-    background: #fff;
-    color: var(--s-text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+    border: 1px solid var(--o-border);
+    border-radius: 14px;
+    background: var(--o-gray);
+    color: var(--o-slate);
+    transition: transform 0.12s ease;
 }
 
 .stockin-quantity-control button:last-child {
-    background: var(--s-orange);
-    border-color: var(--s-orange);
-    color: #fff;
+    border-color: var(--o-orange);
+    background: var(--o-orange);
+    color: #ffffff;
+}
+
+.stockin-quantity-control button:active {
+    transform: scale(0.94);
 }
 
 .stockin-quantity-control input {
@@ -427,26 +471,19 @@
     min-width: 0;
     height: 48px;
     padding: 0 8px;
-    border: 1px solid var(--s-dark);
-    border-radius: 10px;
-    background: #fff;
-    color: var(--s-text);
-    font-size: 20px;
+    border: 1px solid var(--o-border);
+    border-radius: 14px;
+    background: var(--o-card);
+    color: var(--o-text);
+    font-family: inherit;
+    font-size: 18px;
     font-weight: 800;
     text-align: center;
-    outline: none;
-    -moz-appearance: textfield;
-}
-
-.stockin-quantity-control input::-webkit-outer-spin-button,
-.stockin-quantity-control input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }
 
 .stockin-quantity-control input:focus {
-    border-color: var(--s-orange);
-    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+    outline: none;
+    border-color: var(--o-orange);
 }
 
 /* Prices */
@@ -454,72 +491,87 @@
 .stockin-price-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 10px;
 }
 
 .stockin-money-input {
     display: flex;
     align-items: center;
-    gap: 6px;
-    height: 50px;
+    min-width: 0;
+    height: 48px;
     padding: 0 12px;
-    border: 1px solid var(--s-border);
-    border-radius: 10px;
-    background: #fff;
+    border: 1px solid var(--o-border);
+    border-radius: 14px;
+    background: var(--o-card);
+    transition: border-color 0.15s ease;
 }
 
 .stockin-money-input:focus-within {
-    border-color: var(--s-orange);
-    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+    border-color: var(--o-orange);
 }
 
 .stockin-money-input span {
-    font-size: 16px;
-    font-weight: 800;
-    color: var(--s-text);
+    flex-shrink: 0;
+    margin-right: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--o-muted);
 }
 
 .stockin-money-input input {
     flex: 1;
+    width: 100%;
     min-width: 0;
     height: 100%;
     padding: 0;
     border: none;
-    outline: none;
     background: transparent;
-    color: var(--s-text);
+    color: var(--o-text);
+    font-family: inherit;
     font-size: 16px;
-    font-weight: 800;
-    -moz-appearance: textfield;
+    font-weight: 700;
 }
 
-.stockin-money-input input::-webkit-outer-spin-button,
-.stockin-money-input input::-webkit-inner-spin-button {
+.stockin-money-input input:focus {
+    outline: none;
+}
+
+/* Hide number spinners */
+
+.stockin-page input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.stockin-page input[type="number"]::-webkit-outer-spin-button,
+.stockin-page input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* New stock */
+/* New stock result */
 
 .stockin-new-stock {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12px;
     padding: 12px 14px;
-    border-radius: 10px;
-    background: var(--s-gray);
+    border-radius: 14px;
+    background: var(--o-green-soft);
 }
 
 .stockin-new-stock span {
-    font-size: 14px;
-    color: var(--s-muted);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--o-green-dark);
 }
 
 .stockin-new-stock strong {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
-    color: var(--s-green);
+    color: var(--o-green-dark);
+    text-align: right;
 }
 
 /* ---------- Purchase details ---------- */
@@ -527,68 +579,66 @@
 .stockin-details-section {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid var(--s-border);
-    border-radius: 14px;
-    background: var(--s-card);
+    gap: 14px;
+    margin-top: 26px;
+    padding: 18px 16px;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 18px;
 }
 
 .stockin-section-title {
-    margin: 0 0 2px;
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 800;
-    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 .stockin-form-field {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
+    min-width: 0;
 }
 
 .stockin-form-field label {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--s-slate);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--o-slate);
 }
 
 .stockin-form-field input,
 .stockin-form-field textarea {
     width: 100%;
-    padding: 0 16px;
-    border: 1px solid var(--s-border);
-    border-radius: 12px;
-    background: #fff;
-    color: var(--s-text);
+    padding: 0 14px;
+    border: 1px solid var(--o-border);
+    border-radius: 14px;
+    background: var(--o-card);
+    color: var(--o-text);
+    font-family: inherit;
     font-size: 16px;
-    font-weight: 500;
-    outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: border-color 0.15s ease;
 }
 
 .stockin-form-field input {
-    height: 54px;
+    height: 48px;
 }
 
 .stockin-form-field textarea {
-    min-height: 90px;
-    padding: 14px 16px;
-    line-height: 1.4;
+    min-height: 84px;
+    padding: 12px 14px;
+    line-height: 1.45;
     resize: vertical;
 }
 
 .stockin-form-field input::placeholder,
 .stockin-form-field textarea::placeholder {
-    color: #9aa5b5;
-    font-weight: 400;
+    color: var(--o-muted);
 }
 
 .stockin-form-field input:focus,
 .stockin-form-field textarea:focus {
-    border-color: var(--s-orange);
-    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+    outline: none;
+    border-color: var(--o-orange);
 }
 
 /* ---------- Summary ---------- */
@@ -596,62 +646,63 @@
 .stockin-summary-section {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 20px 22px;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 16px 18px;
+    background: var(--o-peach);
+    border: 1px solid #f5c9a0;
+    border-left: 5px solid var(--o-orange);
     border-radius: 16px;
-    background: var(--s-dark);
-    color: #fff;
 }
 
 .stockin-summary-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: 12px;
 }
 
 .stockin-summary-row span {
-    font-size: 15px;
-    color: #d5d9e0;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--o-orange-dark);
 }
 
 .stockin-summary-row strong {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 800;
-    color: #fff;
-}
-
-.stockin-summary-row:last-child strong {
-    font-size: 24px;
+    color: var(--o-orange-dark);
+    overflow-wrap: anywhere;
+    text-align: right;
 }
 
 /* ---------- Messages ---------- */
 
 .stockin-error-message {
-    margin-bottom: 16px;
+    margin-top: 14px;
     padding: 12px 14px;
-    border-radius: 12px;
-    background: var(--s-red-soft);
-    border: 1px solid #ffa8a8;
-    color: var(--s-red);
-    font-size: 14px;
+    background: var(--o-red-soft);
+    border: 1px solid #f5b5b5;
+    border-radius: 14px;
+    color: var(--o-red);
+    font-size: 13px;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.45;
 }
 
 .stockin-success-message {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-top: 14px;
     padding: 12px 14px;
-    border-radius: 12px;
-    background: var(--s-green-soft);
-    border: 1px solid #a9dbb4;
-    color: var(--s-green);
-    font-size: 14px;
+    background: var(--o-green-soft);
+    border: 1px solid #b7e1c0;
+    border-radius: 14px;
+    color: var(--o-green-dark);
+    font-size: 13px;
     font-weight: 700;
+    line-height: 1.45;
 }
 
 .stockin-success-message svg {
@@ -661,7 +712,7 @@
 /* ---------- Save ---------- */
 
 .stockin-save-section {
-    display: flex;
+    margin-top: 18px;
 }
 
 .stockin-save-button {
@@ -670,23 +721,25 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
-    height: 60px;
-    border: 1px solid var(--s-dark);
-    border-radius: 12px;
-    background: var(--s-orange);
-    color: #fff;
+    height: 56px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 18px;
+    background: var(--o-orange);
+    color: #ffffff;
     font-size: 16px;
     font-weight: 800;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.12s ease, background 0.15s ease;
 }
 
 .stockin-save-button:active:not(:disabled) {
-    background: var(--s-orange-dark);
+    transform: scale(0.98);
+    background: var(--o-orange-dark);
 }
 
 .stockin-save-button:disabled {
-    opacity: 0.55;
+    background: var(--o-gray);
+    color: var(--o-muted);
     cursor: not-allowed;
 }
 
@@ -695,7 +748,20 @@
 @media (max-width: 360px) {
     .stockin-page { padding-left: 16px; padding-right: 16px; }
     .stockin-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
-    .stockin-title { font-size: 23px; }
+    .stockin-title { font-size: 17px; }
+    .stockin-product-card { padding: 14px; }
+    .stockin-product-icon { width: 42px; height: 42px; }
+    .stockin-quantity-control button { width: 44px; height: 44px; }
+    .stockin-quantity-control input { height: 44px; font-size: 16px; }
     .stockin-price-grid { gap: 8px; }
-    .stockin-details-section { padding: 16px; }
+    .stockin-money-input { height: 44px; padding: 0 10px; }
+    .stockin-details-section { padding: 16px 14px; }
+    .stockin-save-button { height: 52px; font-size: 15px; }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .stockin-loading-text { animation: none; }
+    .stockin-page * { transition: none !important; }
 }

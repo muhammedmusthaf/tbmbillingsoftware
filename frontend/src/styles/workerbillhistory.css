@@ -1,0 +1,415 @@
+/* =========================================================
+   Worker Bill History — mobile-first styles
+   File: src/styles/workerBillHistory.css
+   ========================================================= */
+
+.worker-bill-history-page {
+    --w-bg: #f6f7f9;
+    --w-card: #ffffff;
+    --w-border: #dfe3e8;
+    --w-text: #101216;
+    --w-muted: #64748b;
+    --w-slate: #5b6b86;
+    --w-orange: #d9480f;
+    --w-orange-dark: #b93a09;
+    --w-peach: #ffe6cf;
+    --w-dark: #111317;
+    --w-green: #2b8a3e;
+    --w-green-dark: #237033;
+    --w-green-soft: #e3f4e7;
+    --w-red: #c92a2a;
+    --w-red-soft: #ffe3e3;
+    --w-gray: #eceff4;
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--w-bg);
+    color: var(--w-text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 0 18px calc(96px + env(safe-area-inset-bottom, 0px));
+    max-width: 480px;
+    margin: 0 auto;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.worker-bill-history-page *,
+.worker-bill-history-page *::before,
+.worker-bill-history-page *::after {
+    box-sizing: border-box;
+}
+
+.worker-bill-history-page h2,
+.worker-bill-history-page h3,
+.worker-bill-history-page p {
+    margin: 0;
+}
+
+.worker-bill-history-page button,
+.worker-bill-history-page input {
+    font-family: inherit;
+}
+
+.worker-bill-history-page button {
+    cursor: pointer;
+}
+
+.worker-bill-history-page button:focus-visible,
+.worker-bill-history-page input:focus-visible {
+    outline: 2px solid var(--w-orange);
+    outline-offset: 2px;
+}
+
+/* ---------- Header ---------- */
+
+.worker-bill-history-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin: 0 -18px;
+    padding: calc(18px + env(safe-area-inset-top, 0px)) 18px 20px;
+    background: var(--w-dark);
+    color: #ffffff;
+    border-radius: 0 0 22px 22px;
+}
+
+.worker-bill-history-header h2 {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.worker-bill-history-header p {
+    margin-top: 4px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* ---------- Stats ---------- */
+
+.worker-bill-history-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.worker-bill-history-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 16px;
+    min-width: 0;
+}
+
+.worker-bill-history-stat span {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--w-muted);
+}
+
+.worker-bill-history-stat h3 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+/* Today's sales stands out, full width */
+.worker-bill-history-stat:nth-child(3) {
+    grid-column: 1 / -1;
+    background: var(--w-green-soft);
+    border-color: #c4e6cb;
+}
+
+.worker-bill-history-stat:nth-child(3) span {
+    color: var(--w-slate);
+}
+
+.worker-bill-history-stat:nth-child(3) h3 {
+    color: var(--w-green-dark);
+    font-size: 26px;
+}
+
+/* ---------- Search ---------- */
+
+.worker-bill-history-search {
+    margin-top: 14px;
+}
+
+.worker-bill-history-search input {
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 14px;
+    color: var(--w-text);
+    font-size: 16px; /* prevents iOS zoom on focus */
+    transition: border-color 0.15s ease;
+}
+
+.worker-bill-history-search input::placeholder {
+    color: var(--w-muted);
+    font-size: 14px;
+}
+
+.worker-bill-history-search input:focus {
+    outline: none;
+    border-color: var(--w-orange);
+}
+
+/* ---------- Message / Error / Empty ---------- */
+
+.worker-bill-history-message,
+.worker-bill-history-error,
+.worker-bill-history-empty {
+    margin-top: 16px;
+    padding: 34px 16px;
+    border-radius: 18px;
+    text-align: center;
+    font-size: 13.5px;
+}
+
+.worker-bill-history-message {
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    color: var(--w-muted);
+    font-weight: 600;
+}
+
+.worker-bill-history-error {
+    padding: 14px 16px;
+    background: var(--w-red-soft);
+    border: 1px solid #f5b5b5;
+    color: var(--w-red);
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.worker-bill-history-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    background: var(--w-card);
+    border: 1px dashed var(--w-border);
+    color: var(--w-muted);
+}
+
+.worker-bill-history-empty h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--w-text);
+}
+
+.worker-bill-history-empty p {
+    font-size: 13px;
+}
+
+.worker-bill-history-empty button {
+    margin-top: 12px;
+    height: 46px;
+    padding: 0 22px;
+    border: none;
+    border-radius: 12px;
+    background: var(--w-orange);
+    color: #ffffff;
+    font-size: 14.5px;
+    font-weight: 700;
+}
+
+.worker-bill-history-empty button:active {
+    background: var(--w-orange-dark);
+}
+
+/* ---------- Bill list ---------- */
+
+.worker-bill-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.worker-bill-history-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background: var(--w-card);
+    border: 1px solid var(--w-border);
+    border-radius: 18px;
+}
+
+.worker-bill-history-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.worker-bill-history-card-top > div {
+    min-width: 0;
+}
+
+.worker-bill-history-card-top h3 {
+    font-size: 15.5px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    overflow-wrap: anywhere;
+}
+
+.worker-bill-history-card-top p {
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: var(--w-muted);
+}
+
+/* ---------- Status badge ---------- */
+
+.worker-bill-history-status {
+    flex-shrink: 0;
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: var(--w-gray);
+    color: var(--w-slate);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.worker-status-paid {
+    background: var(--w-green-soft);
+    color: var(--w-green-dark);
+}
+
+.worker-status-partial,
+.worker-status-partially_paid,
+.worker-status-pending {
+    background: var(--w-peach);
+    color: var(--w-orange-dark);
+}
+
+.worker-status-unpaid,
+.worker-status-credit,
+.worker-status-overdue,
+.worker-status-cancelled {
+    background: var(--w-red-soft);
+    color: var(--w-red);
+}
+
+/* ---------- Customer ---------- */
+
+.worker-bill-history-customer {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    background: var(--w-bg);
+    border-radius: 12px;
+}
+
+.worker-bill-history-customer strong {
+    font-size: 14px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.worker-bill-history-customer span {
+    font-size: 12.5px;
+    color: var(--w-slate);
+}
+
+/* ---------- Amounts ---------- */
+
+.worker-bill-history-card-bottom {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 10px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--w-border);
+}
+
+.worker-bill-history-card-bottom > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.worker-bill-history-card-bottom span {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--w-muted);
+}
+
+.worker-bill-history-card-bottom h3 {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--w-text);
+    overflow-wrap: anywhere;
+}
+
+.worker-bill-history-card-bottom strong {
+    font-size: 14px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.worker-bill-history-card-bottom > div:nth-child(2) strong {
+    color: var(--w-green-dark);
+}
+
+.worker-bill-history-card-bottom > div:nth-child(3) strong {
+    color: var(--w-red);
+}
+
+/* ---------- View button ---------- */
+
+.worker-bill-history-view {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: 12px;
+    background: var(--w-dark);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    transition: transform 0.12s ease, background 0.15s ease;
+}
+
+.worker-bill-history-view:active {
+    transform: scale(0.98);
+    background: var(--w-orange);
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .worker-bill-history-page { padding-left: 16px; padding-right: 16px; }
+    .worker-bill-history-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
+    .worker-bill-history-header h2 { font-size: 21px; }
+    .worker-bill-history-stat h3 { font-size: 19px; }
+    .worker-bill-history-stat:nth-child(3) h3 { font-size: 22px; }
+    .worker-bill-history-card { padding: 14px; }
+    .worker-bill-history-card-bottom { grid-template-columns: 1fr 1fr; }
+    .worker-bill-history-card-bottom > div:first-child { grid-column: 1 / -1; }
+    .worker-bill-history-card-bottom h3 { font-size: 16px; }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .worker-bill-history-page * { transition: none !important; }
+}

@@ -1,5 +1,5 @@
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState,useRef } from "react";
 import axios from "axios";
 import {
   ArrowLeft,
@@ -42,6 +42,11 @@ const formatDate = (value) => {
 const CustomerCredit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const paymentSubmittingRef = useRef(false);
+const paymentRequestRef = useRef({
+  fingerprint: "",
+  idempotencyKey: "",
+});
 
   const [customer, setCustomer] = useState(null);
   const [invoices, setInvoices] = useState([]);
@@ -174,77 +179,109 @@ const CustomerCredit = () => {
   // RECEIVE PAYMENT
   // ==========================================
 
-  const handleReceivePayment = async (e) => {
-    e.preventDefault();
+ const handleReceivePayment = async (e) => {
+  e.preventDefault();
 
-    if (!selectedInvoice) {
-      setError("Please select an unpaid invoice.");
-      return;
-    }
+  // Prevent rapid repeated submissions
+  if (paymentSubmittingRef.current) return;
 
-    const paymentAmount = Number(amount);
+  if (!selectedInvoice) {
+    setError("Please select an unpaid invoice.");
+    return;
+  }
 
-    if (
-      !Number.isFinite(paymentAmount) ||
-      paymentAmount <= 0 ||
-      !Number.isInteger(paymentAmount * 100)
-    ) {
-      setError("Enter a valid amount with up to 2 decimal places.");
-      return;
-    }
+  const paymentAmount = Number(amount);
 
-    if (paymentAmount > selectedBalance + 0.001) {
-      setError(
-        `Payment cannot exceed ${formatCurrency(selectedBalance)}.`
-      );
-      return;
-    }
+  if (
+    !Number.isFinite(paymentAmount) ||
+    paymentAmount <= 0 ||
+    !Number.isInteger(paymentAmount * 100)
+  ) {
+    setError("Enter a valid amount with up to 2 decimal places.");
+    return;
+  }
 
-    if (paymentMethod === "upi" && !referenceNumber.trim()) {
-      setError("Enter the UPI transaction reference.");
-      return;
-    }
+  if (paymentAmount > selectedBalance + 0.001) {
+    setError(
+      `Payment cannot exceed ${formatCurrency(selectedBalance)}.`
+    );
+    return;
+  }
 
-    try {
-      setSaving(true);
-      setError("");
-      setSuccess("");
+  if (paymentMethod === "upi" && !referenceNumber.trim()) {
+    setError("Enter the UPI transaction reference.");
+    return;
+  }
 
-      await axios.post(
-        `${API_URL}/api/credit/payment`,
-        {
-          invoiceId: selectedInvoice._id,
-          amount: paymentAmount,
-          paymentMethod,
-          referenceNumber:
-            paymentMethod === "upi"
-              ? referenceNumber.trim()
-              : "",
-          notes: notes.trim(),
-        },
-        getConfig()
-      );
+  // Identify this exact payment request
+  const fingerprint = JSON.stringify({
+    invoiceId: selectedInvoice._id,
+    amount: paymentAmount,
+    paymentMethod,
+    referenceNumber:
+      paymentMethod === "upi" ? referenceNumber.trim() : "",
+    notes: notes.trim(),
+  });
 
-      setSelectedInvoiceId("");
-      setAmount("");
-      setReferenceNumber("");
-      setNotes("");
-      setPaymentMethod("cash");
+  // Reuse the same key when retrying an unchanged request
+  if (paymentRequestRef.current.fingerprint !== fingerprint) {
+    paymentRequestRef.current = {
+      fingerprint,
+      idempotencyKey: crypto.randomUUID(),
+    };
+  }
 
-      await loadData(false);
+  const idempotencyKey = paymentRequestRef.current.idempotencyKey;
 
-      setSuccess("Credit payment recorded successfully.");
-    } catch (err) {
-      console.error("RECEIVE PAYMENT ERROR:", err);
+  try {
+    paymentSubmittingRef.current = true;
+    setSaving(true);
+    setError("");
+    setSuccess("");
 
-      setError(
-        err.response?.data?.message ||
-          "Unable to record credit payment."
-      );
-    } finally {
-      setSaving(false);
-    }
-  };
+    await axios.post(
+      `${API_URL}/api/credit/payment`,
+      {
+        invoiceId: selectedInvoice._id,
+        amount: paymentAmount,
+        paymentMethod,
+        referenceNumber:
+          paymentMethod === "upi"
+            ? referenceNumber.trim()
+            : "",
+        notes: notes.trim(),
+        idempotencyKey,
+      },
+      getConfig()
+    );
+
+    // Payment successfully recorded
+    paymentRequestRef.current = {
+      fingerprint: "",
+      idempotencyKey: "",
+    };
+
+    setSelectedInvoiceId("");
+    setAmount("");
+    setReferenceNumber("");
+    setNotes("");
+    setPaymentMethod("cash");
+
+    await loadData(false);
+
+    setSuccess("Credit payment recorded successfully.");
+  } catch (err) {
+    console.error("RECEIVE PAYMENT ERROR:", err);
+
+    setError(
+      err.response?.data?.message ||
+        "Unable to record credit payment."
+    );
+  } finally {
+    paymentSubmittingRef.current = false;
+    setSaving(false);
+  }
+};
 
   if (loading) {
     return (

@@ -1,33 +1,38 @@
-/* ==========================================
-   ADD CUSTOMER PAGE — addCustomer.css
-   Uses only the classNames already in AddCustomer.jsx
-   Colors match home.css / addProduct.css / customers.css
-   ========================================== */
+/* =========================================================
+   Owner Add Customer — mobile-first styles
+   File: src/styles/addCustomer.css
+
+   Design: orange + white, same palette as the home & more pages.
+   ========================================================= */
 
 .addcustomer-page {
-    --ac-bg: #f6f7f9;
-    --ac-card: #ffffff;
-    --ac-border: #dfe3e8;
-    --ac-text: #101216;
-    --ac-muted: #64748b;
-    --ac-slate: #5b6b86;
-    --ac-orange: #d9480f;
-    --ac-orange-dark: #b93a09;
-    --ac-peach-soft: #ffe8d1;
-    --ac-dark: #111317;
-    --ac-red: #c92a2a;
-    --ac-red-soft: #ffe3e3;
-    --ac-gray: #eceff4;
+    --o-bg: #f6f7f9;
+    --o-card: #ffffff;
+    --o-border: #dfe3e8;
+    --o-text: #101216;
+    --o-muted: #64748b;
+    --o-slate: #5b6b86;
+    --o-navy: #111317;
+    --o-orange: #d9480f;
+    --o-orange-dark: #b93a09;
+    --o-peach: #ffe6cf;
+    --o-green: #2b8a3e;
+    --o-green-dark: #237033;
+    --o-green-soft: #e3f4e7;
+    --o-red: #c92a2a;
+    --o-red-soft: #ffe3e3;
+    --o-gray: #eceff4;
 
-    width: 100%;
-    max-width: 430px;
+    box-sizing: border-box;
     min-height: 100vh;
+    min-height: 100dvh;
+    max-width: 480px;
     margin: 0 auto;
-    padding: 14px 20px 120px;
-    background: var(--ac-bg);
-    color: var(--ac-text);
-    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
+    padding: 0 18px calc(104px + env(safe-area-inset-bottom, 0px));
+    background: var(--o-bg);
+    color: var(--o-text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .addcustomer-page *,
@@ -36,223 +41,302 @@
     box-sizing: border-box;
 }
 
+.addcustomer-page h1,
+.addcustomer-page h2,
+.addcustomer-page h3,
+.addcustomer-page p {
+    margin: 0;
+}
+
 .addcustomer-page button,
 .addcustomer-page input,
 .addcustomer-page textarea {
     font-family: inherit;
 }
 
+.addcustomer-page button {
+    cursor: pointer;
+}
+
+.addcustomer-page button:focus-visible,
+.addcustomer-page input:focus-visible,
+.addcustomer-page textarea:focus-visible {
+    outline: 2px solid var(--o-orange);
+    outline-offset: 2px;
+}
+
 /* ---------- Header ---------- */
 
 .addcustomer-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin: 0 -20px 22px;
-    padding: 14px 20px 16px;
-    border-bottom: 1px solid var(--ac-border);
+    gap: 12px;
+    margin: 0 -18px;
+    padding: calc(14px + env(safe-area-inset-top, 0px)) 18px 14px;
+    background: var(--o-navy);
+    color: #ffffff;
 }
 
 .addcustomer-back-button {
-    width: 44px;
-    height: 44px;
     flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
     padding: 0;
-    border: 1px solid var(--ac-border);
-    border-radius: 12px;
-    background: #fff;
-    color: var(--ac-text);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    transition: transform 0.12s ease, background-color 0.15s ease;
 }
 
 .addcustomer-back-button:active {
-    background: var(--ac-gray);
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .addcustomer-header-info {
+    flex: 1;
     min-width: 0;
 }
 
 .addcustomer-title {
-    margin: 0;
-    font-size: 26px;
+    font-size: 18.5px;
     font-weight: 800;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
 .addcustomer-subtitle {
-    margin: 3px 0 0;
-    font-size: 13.5px;
-    color: var(--ac-muted);
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.72);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-/* ---------- Form / sections ---------- */
+/* ---------- Form & Sections ---------- */
 
 .addcustomer-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
+    margin-top: 16px;
 }
 
 .addcustomer-section {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    border: 1px solid var(--ac-border);
-    border-radius: 14px;
-    background: var(--ac-card);
+    gap: 13px;
+    padding: 16px;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 20px;
 }
 
 .addcustomer-section-heading {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .addcustomer-section-heading svg {
     flex-shrink: 0;
-    color: var(--ac-orange);
+    color: var(--o-orange);
 }
 
 .addcustomer-section-heading h2,
 .addcustomer-section-title {
-    margin: 0;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 800;
-    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--o-text);
 }
-
-/* ---------- Fields ---------- */
 
 .addcustomer-field {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    min-width: 0;
+    gap: 6px;
 }
 
 .addcustomer-field label {
     font-size: 13px;
-    font-weight: 800;
-    color: var(--ac-slate);
+    font-weight: 700;
+    color: var(--o-text);
 }
 
-.addcustomer-field input,
+.addcustomer-field input[type="text"],
+.addcustomer-field input[type="tel"],
+.addcustomer-field input[type="email"],
 .addcustomer-field textarea {
     width: 100%;
-    min-width: 0;
-    padding: 0 14px;
-    border: 1px solid var(--ac-border);
-    border-radius: 12px;
-    background: #fff;
-    color: var(--ac-text);
-    font-size: 16px;
+    padding: 11px 14px;
+    border: 1px solid var(--o-border);
+    border-radius: 13px;
+    background: var(--o-bg);
+    color: var(--o-text);
+    font-size: 14px;
     font-weight: 500;
     outline: none;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.addcustomer-field input {
-    height: 54px;
+.addcustomer-field input[type="text"],
+.addcustomer-field input[type="tel"],
+.addcustomer-field input[type="email"] {
+    height: 46px;
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 .addcustomer-field textarea {
-    min-height: 90px;
-    padding: 14px;
-    line-height: 1.4;
     resize: vertical;
-}
-
-.addcustomer-field input::placeholder,
-.addcustomer-field textarea::placeholder {
-    color: #9aa5b5;
-    font-weight: 400;
+    min-height: 78px;
 }
 
 .addcustomer-field input:focus,
 .addcustomer-field textarea:focus {
-    border-color: var(--ac-orange);
-    box-shadow: 0 0 0 3px rgba(217, 72, 15, 0.15);
+    border-color: var(--o-orange);
+    background: var(--o-card);
 }
 
-/* ---------- Credit info ---------- */
+/* ---------- WhatsApp Consent ---------- */
+
+.addcustomer-whatsapp-section {
+    border-left: 4px solid var(--o-green);
+}
+
+.addcustomer-whatsapp-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--o-bg);
+    border: 1px solid var(--o-border);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.45;
+    color: var(--o-text);
+    cursor: pointer;
+}
+
+.addcustomer-whatsapp-consent input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--o-green);
+    cursor: pointer;
+}
+
+.addcustomer-consent-note {
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: var(--o-muted);
+}
+
+/* ---------- Credit Account Info ---------- */
 
 .addcustomer-credit-info {
-    padding: 16px 18px;
-    border-radius: 14px;
-    background: var(--ac-peach-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 14px 16px;
+    border-radius: 17px;
+    background: var(--o-peach);
+    border: 1px solid #f5c9a0;
 }
 
 .addcustomer-credit-info h3 {
-    margin: 0;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 800;
-    color: var(--ac-orange);
+    color: var(--o-orange-dark);
 }
 
 .addcustomer-credit-info p {
-    margin: 6px 0 0;
-    font-size: 13.5px;
-    line-height: 1.5;
-    color: var(--ac-orange);
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: var(--o-orange-dark);
 }
 
-/* ---------- Error ---------- */
+/* ---------- Error & Save Button ---------- */
 
 .addcustomer-error-message {
     padding: 12px 14px;
-    border-radius: 12px;
-    background: var(--ac-red-soft);
-    border: 1px solid #ffa8a8;
-    color: var(--ac-red);
-    font-size: 14px;
-    font-weight: 600;
+    background: var(--o-red-soft);
+    border: 1px solid #f5b5b5;
+    border-radius: 14px;
+    color: var(--o-red);
+    font-size: 13px;
+    font-weight: 700;
     line-height: 1.4;
 }
 
-/* ---------- Save ---------- */
-
 .addcustomer-save-section {
-    display: flex;
+    margin-top: 2px;
 }
 
 .addcustomer-save-button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
-    height: 60px;
-    border: 1px solid var(--ac-dark);
-    border-radius: 12px;
-    background: var(--ac-orange);
-    color: #fff;
-    font-size: 16px;
+    height: 48px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 15px;
+    background: var(--o-orange);
+    color: #ffffff;
+    font-size: 14.5px;
     font-weight: 800;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.12s ease, background-color 0.15s ease;
 }
 
 .addcustomer-save-button:active:not(:disabled) {
-    background: var(--ac-orange-dark);
+    transform: scale(0.98);
+    background: var(--o-orange-dark);
 }
 
 .addcustomer-save-button:disabled {
-    opacity: 0.55;
+    opacity: 0.6;
     cursor: not-allowed;
 }
 
 /* ---------- Small phones ---------- */
 
 @media (max-width: 360px) {
-    .addcustomer-page { padding-left: 16px; padding-right: 16px; }
-    .addcustomer-header { margin-left: -16px; margin-right: -16px; padding-left: 16px; padding-right: 16px; }
-    .addcustomer-title { font-size: 23px; }
-    .addcustomer-section { padding: 16px; }
+    .addcustomer-page {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .addcustomer-header {
+        margin-left: -16px;
+        margin-right: -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .addcustomer-title {
+        font-size: 17px;
+    }
+
+    .addcustomer-section {
+        padding: 14px;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .addcustomer-page * {
+        transition: none !important;
+    }
 }

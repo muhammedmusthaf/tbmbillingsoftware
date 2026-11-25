@@ -116,49 +116,32 @@ const Home = () => {
   // FETCH DASHBOARD
   // ==========================================
 
-  const fetchDashboard = async () => {
-    const response =
-      await axios.get(
-        `${API_URL}/api/dashboard`,
-        authConfig
-      );
+  
+const fetchDashboard = async () => {
+  const response = await axios.get(
+    `${API_URL}/api/dashboard`,
+    authConfig
+  );
 
-    const data =
-      response.data;
+  const data = response.data;
+  const summary = data.summary || data;
 
+  const products = Array.isArray(data.lowStockProducts)
+    ? data.lowStockProducts
+    : [];
 
-    setDashboard({
-      todaySales:
-        Number(
-          data.todaySales ?? 0
-        ),
+  setDashboard({
+    todaySales: Number(summary.todaySales || 0),
+    billsToday: Number(summary.billsToday || 0),
+    outstandingCredit: Number(summary.outstandingCredit || 0),
 
-      billsToday:
-        Number(
-          data.billsToday ?? 0
-        ),
+    // Include all products requiring stock attention.
+    lowStockCount: products.length,
 
-      outstandingCredit:
-        Number(
-          data.outstandingCredit ??
-            data.totalOutstandingCredit ??
-            0
-        ),
-
-      lowStockCount:
-        Number(
-          data.lowStockCount ?? 0
-        ),
-
-      recentInvoices:
-        data.recentInvoices || [],
-
-      lowStockProducts:
-        data.lowStockProducts || [],
-    });
-  };
-
-
+    recentInvoices: data.recentInvoices || [],
+    lowStockProducts: products,
+  });
+};
   // ==========================================
   // FETCH SETTINGS
   // ==========================================

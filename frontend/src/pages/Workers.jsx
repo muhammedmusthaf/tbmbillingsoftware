@@ -1,28 +1,26 @@
-
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  ArrowLeft,
-  UsersRound,
+  Users,
   UserPlus,
   Search,
   Phone,
+  AtSign,
   ShieldCheck,
-  UserRound,
-  RefreshCw,
+  ShieldOff,
   X,
-  Eye,
-  EyeOff,
-  AlertCircle,
+  Loader2,
+  RefreshCw,
+  Power,
 } from "lucide-react";
+
 import { useNavigate } from "react-router-dom";
-
-import "../styles/workers.css";
 import OwnerBottomNav from "../components/OwnerBottomnav";
+import "../styles/worker.css";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL 
 
-const Workers = () => {
+function Workers() {
   const navigate = useNavigate();
 
   const [workers, setWorkers] = useState([]);
@@ -30,65 +28,49 @@ const Workers = () => {
 
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [updatingWorker, setUpdatingWorker] = useState(null);
 
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
 
-  const [form, setForm] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     phone: "",
-    email: "",
+    username: "",
     password: "",
   });
 
+  const [error, setError] = useState("");
+
+  // Authentication headers
   const config = () => ({
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   });
 
-  // ==========================================
-  // FETCH WORKERS
-  // ==========================================
-
-  const fetchWorkers = async (refresh = false) => {
+  // Fetch workers
+  const fetchWorkers = async (isRefresh = false) => {
     try {
-      if (refresh) setRefreshing(true);
-      else setLoading(true);
-
-      setError("");
+      if (isRefresh) {
+        setRefreshing(true);
+      } else {
+        setLoading(true);
+      }
 
       const response = await axios.get(
         `${API_URL}/api/workers`,
         config()
       );
 
-      const data = response.data;
-
-      const workerList = Array.isArray(data)
-        ? data
-        : Array.isArray(data.workers)
-        ? data.workers
-        : Array.isArray(data.users)
-        ? data.users
-        : null;
-
-      if (!workerList) {
-        throw new Error(
-          "Unexpected workers API response format."
-        );
-      }
-
-      setWorkers(workerList);
+      setWorkers(response.data.workers || []);
     } catch (err) {
-      console.error("WORKERS ERROR:", err);
+      console.error("Error fetching workers:", err);
 
-      setError(
-        err.response?.data?.message ||
-          err.message ||
-          "Unable to load workers."
-      );
+      const message =
+        err.response?.data?.message || "Failed to load workers.";
+
+      setError(message);
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -99,92 +81,200 @@ const Workers = () => {
     fetchWorkers();
   }, []);
 
-  // ==========================================
-  // FILTER WORKERS
-  // ==========================================
+  // Form input handler
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const filteredWorkers = useMemo(() => {
-    const query = search.trim().toLowerCase();
-
-    return workers.filter((worker) => {
-      const searchable = [
-        worker.name,
-        worker.username,
-        worker.phone,
-        worker.email,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-
-      return !query || searchable.includes(query);
-    });
-  }, [workers, search]);
-
-  const activeWorkers = workers.filter(
-    (worker) => worker.isActive !== false
-  ).length;
-
-  const inactiveWorkers = workers.filter(
-    (worker) => worker.isActive === false
-  ).length;
-
-  // ==========================================
-  // FORM HANDLERS
-  // ==========================================
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setForm((previous) => ({
-      ...previous,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
+  // Reset form
   const resetForm = () => {
-    setForm({
+    setFormData({
       name: "",
       phone: "",
-      email: "",
+      username: "",
       password: "",
     });
 
-    setShowPassword(false);
-    setShowAddForm(false);
+    setError("");
   };
 
-  const handleAddWorker = (event) => {
-    event.preventDefault();
+  // Add worker
+  const handleAddWorker = async (e) => {
+    e.preventDefault();
 
-    // POST /api/workers must be confirmed against
-    // your actual worker controller before saving.
-    setError(
-      "Worker creation is not connected yet. Please confirm the POST /api/workers request fields from your backend."
+    setError("");
+
+    if (
+      !formData.name.trim() ||
+      !formData.phone.trim() ||
+      !formData.username.trim() ||
+      !formData.password
+    ) {
+      setError("Please fill all the fields.");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password must contain at least 6 characters.");
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+
+      await axios.post(
+        `${API_URL}/api/workers`,
+        {
+          name: formData.name.trim(),
+          phone: formData.phone.trim(),
+          username: formData.username.trim(),
+          password: formData.password,
+        },
+        config()
+      );
+
+      alert("Worker added successfully!");
+
+      resetForm();
+      setShowAddModal(false);
+
+      await fetchWorkers(true);
+    } catch (err) {
+      console.error("Error adding worker:", err);
+
+      setError(
+        err.response?.data?.message || "Failed to add worker."
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Activate / Deactivate worker
+  const handleToggleStatus = async (worker) => {
+    const action = worker.isActive ? "deactivate" : "activate";
+
+    const confirmed = window.confirm(
+      `Are you sure you want to ${action} ${worker.name}?`
     );
+
+    if (!confirmed) return;
+
+    try {
+      setUpdatingWorker(worker._id);
+
+      await axios.patch(
+        `${API_URL}/api/workers/${worker._id}/status`,
+        {},
+        config()
+      );
+
+      alert(`Worker ${action}d successfully!`);
+
+      await fetchWorkers(true);
+    } catch (err) {
+      console.error("Error updating worker status:", err);
+
+      alert(
+        err.response?.data?.message ||
+          "Failed to update worker status."
+      );
+    } finally {
+      setUpdatingWorker(null);
+    }
   };
 
-  // ==========================================
-  // JSX
-  // ==========================================
+  // Search workers
+  const filteredWorkers = workers.filter((worker) => {
+    const searchValue = search.toLowerCase();
+
+    return (
+      worker.name?.toLowerCase().includes(searchValue) ||
+      worker.username?.toLowerCase().includes(searchValue) ||
+      worker.phone?.toLowerCase().includes(searchValue)
+    );
+  });
+
+  // Summary counts
+  const totalWorkers = workers.length;
+
+  const activeWorkers = workers.filter(
+    (worker) => worker.isActive
+  ).length;
+
+  const inactiveWorkers = totalWorkers - activeWorkers;
 
   return (
     <div className="workers-page">
 
-      {/* HEADER */}
-      <header className="workers-header">
+      {/* Header */}
+      <div className="workers-header">
+        <div>
+          <h1>Workers</h1>
+          <p>Manage your shop workers and their accounts</p>
+        </div>
+
         <button
           type="button"
-          className="workers-back-button"
-          onClick={() => navigate("/more")}
-          aria-label="Go back"
+          className="workers-add-button"
+          onClick={() => {
+            resetForm();
+            setShowAddModal(true);
+          }}
         >
-          <ArrowLeft size={23} />
+          <UserPlus size={18} />
+          Add Worker
         </button>
+      </div>
 
-        <div className="workers-header-info">
-          <h1>Workers</h1>
-          <p>Manage staff and billing access</p>
+      {/* Summary Cards */}
+      <div className="workers-summary">
+
+        <div className="workers-summary-card">
+          <div className="workers-summary-icon">
+            <Users size={22} />
+          </div>
+
+          <div>
+            <p>Total Workers</p>
+            <h2>{totalWorkers}</h2>
+          </div>
+        </div>
+
+        <div className="workers-summary-card">
+          <div className="workers-summary-icon workers-active-icon">
+            <ShieldCheck size={22} />
+          </div>
+
+          <div>
+            <p>Active Workers</p>
+            <h2>{activeWorkers}</h2>
+          </div>
+        </div>
+
+        <div className="workers-summary-card">
+          <div className="workers-summary-icon workers-inactive-icon">
+            <ShieldOff size={22} />
+          </div>
+
+          <div>
+            <p>Inactive Workers</p>
+            <h2>{inactiveWorkers}</h2>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Worker List Header */}
+      <div className="workers-list-header">
+        <div>
+          <h2>All Workers</h2>
+          <p>View and manage registered workers</p>
         </div>
 
         <button
@@ -192,310 +282,289 @@ const Workers = () => {
           className="workers-refresh-button"
           onClick={() => fetchWorkers(true)}
           disabled={refreshing}
-          aria-label="Refresh workers"
+          title="Refresh workers"
         >
-          <RefreshCw size={21} />
-        </button>
-      </header>
-
-      {/* SUMMARY */}
-      <section className="workers-summary-grid">
-        <div className="workers-summary-card">
-          <div className="workers-summary-icon">
-            <UsersRound size={24} />
-          </div>
-
-          <span>Total workers</span>
-          <strong>{workers.length}</strong>
-        </div>
-
-        <div className="workers-summary-card">
-          <div className="workers-summary-icon">
-            <ShieldCheck size={24} />
-          </div>
-
-          <span>Active</span>
-          <strong>{activeWorkers}</strong>
-        </div>
-
-        <div className="workers-summary-card">
-          <div className="workers-summary-icon">
-            <UserRound size={24} />
-          </div>
-
-          <span>Inactive</span>
-          <strong>{inactiveWorkers}</strong>
-        </div>
-      </section>
-
-      {/* SEARCH */}
-      <section className="workers-search-section">
-        <div className="workers-search-box">
-          <Search size={21} />
-
-          <input
-            type="text"
-            placeholder="Search workers"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+          <RefreshCw
+            size={18}
+            className={refreshing ? "workers-spinning" : ""}
           />
-        </div>
-      </section>
-
-      {/* WORKERS HEADING */}
-      <section className="workers-list-heading">
-        <div>
-          <h2>Staff members</h2>
-          <p>{filteredWorkers.length} workers found</p>
-        </div>
-
-        <button
-          type="button"
-          className="workers-add-button"
-          onClick={() => {
-            setError("");
-            setShowAddForm(true);
-          }}
-        >
-          <UserPlus size={19} />
-          Add worker
         </button>
-      </section>
+      </div>
 
-      {/* ERROR */}
-      {error && (
-        <div className="workers-error-message">
-          <AlertCircle size={19} />
-          <span>{error}</span>
+      {/* Search */}
+      <div className="workers-search-box">
+        <Search size={19} />
+
+        <input
+          type="text"
+          placeholder="Search by name, username or phone..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
+
+      {/* Worker List */}
+      {loading ? (
+        <div className="workers-loading">
+          <Loader2 size={28} className="workers-spinning" />
+          <p>Loading workers...</p>
         </div>
-      )}
+      ) : error && workers.length === 0 ? (
+        <div className="workers-empty">
+          <p>{error}</p>
 
-      {/* WORKERS LIST */}
-      <section className="workers-list">
-        {loading ? (
-          <div className="workers-loading">
-            Loading workers...
-          </div>
-        ) : filteredWorkers.length === 0 ? (
-          <div className="workers-empty">
-            <UsersRound size={40} />
+          <button
+            type="button"
+            onClick={() => fetchWorkers()}
+          >
+            Try Again
+          </button>
+        </div>
+      ) : filteredWorkers.length === 0 ? (
+        <div className="workers-empty">
+          <Users size={38} />
+          <h3>No workers found</h3>
+          <p>
+            {search
+              ? "Try searching with another name or username."
+              : "Add your first worker to get started."}
+          </p>
+        </div>
+      ) : (
+        <div className="workers-list">
 
-            <h3>No workers found</h3>
-
-            <p>
-              {search
-                ? "Try another search."
-                : "No worker accounts are available yet."}
-            </p>
-          </div>
-        ) : (
-          filteredWorkers.map((worker) => (
-            <article
+          {filteredWorkers.map((worker) => (
+            <div
               className="workers-member-card"
               key={worker._id}
             >
+
+              {/* Worker Information */}
               <div className="workers-member-top">
+
                 <div className="workers-member-avatar">
-                  {(worker.name || worker.username || "W")
-                    .charAt(0)
-                    .toUpperCase()}
+                  {worker.name?.charAt(0)?.toUpperCase() || "W"}
                 </div>
 
                 <div className="workers-member-info">
-                  <h3>
-                    {worker.name ||
-                      worker.username ||
-                      "Worker"}
-                  </h3>
+                  <h3>{worker.name}</h3>
 
-                  <span>
-                    {worker.role || "worker"}
+                  <span
+                    className={`workers-status ${
+                      worker.isActive
+                        ? "workers-status-active"
+                        : "workers-status-inactive"
+                    }`}
+                  >
+                    {worker.isActive ? "Active" : "Inactive"}
                   </span>
                 </div>
 
-                <span
-                  className={`workers-status ${
-                    worker.isActive === false
-                      ? "workers-status-inactive"
-                      : "workers-status-active"
-                  }`}
-                >
-                  {worker.isActive === false
-                    ? "INACTIVE"
-                    : "ACTIVE"}
-                </span>
               </div>
 
+              {/* Worker Details */}
               <div className="workers-member-details">
-                {worker.phone && (
-                  <div className="workers-member-detail">
-                    <Phone size={17} />
-                    <span>{worker.phone}</span>
-                  </div>
-                )}
 
-                {worker.email && (
-                  <div className="workers-member-detail">
-                    <span>{worker.email}</span>
-                  </div>
-                )}
+                <div>
+                  <AtSign size={16} />
+                  <span>{worker.username || "No username"}</span>
+                </div>
 
-                {worker.username && (
-                  <div className="workers-member-detail">
-                    <UserRound size={17} />
-                    <span>{worker.username}</span>
-                  </div>
-                )}
+                <div>
+                  <Phone size={16} />
+                  <span>{worker.phone || "No phone number"}</span>
+                </div>
+
               </div>
-            </article>
-          ))
-        )}
-      </section>
 
-      {/* ADD WORKER MODAL */}
-      {showAddForm && (
-        <div className="workers-modal-overlay">
+              {/* Activate / Deactivate */}
+              <button
+                type="button"
+                className={
+                  worker.isActive
+                    ? "workers-deactivate-button"
+                    : "workers-activate-button"
+                }
+                onClick={() => handleToggleStatus(worker)}
+                disabled={updatingWorker === worker._id}
+              >
+                {updatingWorker === worker._id ? (
+                  <Loader2
+                    size={17}
+                    className="workers-spinning"
+                  />
+                ) : (
+                  <Power size={17} />
+                )}
+
+                {updatingWorker === worker._id
+                  ? "Updating..."
+                  : worker.isActive
+                  ? "Deactivate Worker"
+                  : "Activate Worker"}
+              </button>
+
+            </div>
+          ))}
+
+        </div>
+      )}
+
+      {/* Add Worker Modal */}
+      {showAddModal && (
+        <div
+          className="workers-modal-overlay"
+          onClick={() => {
+            if (!submitting) {
+              setShowAddModal(false);
+              resetForm();
+            }
+          }}
+        >
+
           <div
             className="workers-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="workers-modal-title"
+            onClick={(e) => e.stopPropagation()}
           >
+
             <div className="workers-modal-header">
               <div>
-                <h2 id="workers-modal-title">
-                  Add new worker
-                </h2>
-
-                <p>Create a staff login account</p>
+                <h2>Add New Worker</h2>
+                <p>Create a login account for your worker</p>
               </div>
 
               <button
                 type="button"
                 className="workers-modal-close"
-                onClick={resetForm}
-                aria-label="Close"
+                onClick={() => {
+                  if (!submitting) {
+                    setShowAddModal(false);
+                    resetForm();
+                  }
+                }}
+                disabled={submitting}
               >
-                <X size={23} />
+                <X size={21} />
               </button>
             </div>
 
             <form
-              className="workers-add-form"
+              className="workers-form"
               onSubmit={handleAddWorker}
             >
-              <div className="workers-form-field">
-                <label>Worker name *</label>
+
+              {/* Name */}
+              <div className="workers-form-group">
+                <label>Worker Name</label>
 
                 <input
                   type="text"
                   name="name"
-                  value={form.name}
+                  placeholder="Enter worker name"
+                  value={formData.name}
                   onChange={handleChange}
-                  placeholder="Full name"
                   required
                 />
               </div>
 
-              <div className="workers-form-field">
-                <label>Phone number</label>
+              {/* Phone */}
+              <div className="workers-form-group">
+                <label>Phone Number</label>
 
                 <input
                   type="tel"
                   name="phone"
-                  value={form.phone}
+                  placeholder="Enter phone number"
+                  value={formData.phone}
                   onChange={handleChange}
-                  placeholder="Phone number"
+                  required
                 />
               </div>
 
-              <div className="workers-form-field">
-                <label>Email</label>
+              {/* Username */}
+              <div className="workers-form-group">
+                <label>Username</label>
 
                 <input
-                  type="email"
-                  name="email"
-                  value={form.email}
+                  type="text"
+                  name="username"
+                  placeholder="Create login username"
+                  value={formData.username}
                   onChange={handleChange}
-                  placeholder="Worker email"
+                  required
                 />
               </div>
 
-              <div className="workers-form-field">
-                <label>Password *</label>
+              {/* Password */}
+              <div className="workers-form-group">
+                <label>Password</label>
 
-                <div className="workers-password-field">
-                  <input
-                    type={
-                      showPassword ? "text" : "password"
-                    }
-                    name="password"
-                    value={form.password}
-                    onChange={handleChange}
-                    placeholder="Create password"
-                    minLength={8}
-                    autoComplete="new-password"
-                    required
-                  />
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setShowPassword((previous) => !previous)
-                    }
-                    aria-label={
-                      showPassword
-                        ? "Hide password"
-                        : "Show password"
-                    }
-                  >
-                    {showPassword ? (
-                      <EyeOff size={20} />
-                    ) : (
-                      <Eye size={20} />
-                    )}
-                  </button>
-                </div>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Minimum 6 characters"
+                  value={formData.password}
+                  onChange={handleChange}
+                  minLength={6}
+                  required
+                />
               </div>
 
-              <div className="workers-form-role">
-                <ShieldCheck size={20} />
-
-                <div>
-                  <strong>Worker access</strong>
-
-                  <p>
-                    Worker accounts will use the
-                    restricted billing interface.
-                  </p>
+              {/* Error */}
+              {error && (
+                <div className="workers-form-error">
+                  {error}
                 </div>
-              </div>
+              )}
 
+              {/* Buttons */}
               <div className="workers-form-actions">
+
                 <button
                   type="button"
                   className="workers-cancel-button"
-                  onClick={resetForm}
+                  onClick={() => {
+                    setShowAddModal(false);
+                    resetForm();
+                  }}
+                  disabled={submitting}
                 >
                   Cancel
                 </button>
 
                 <button
                   type="submit"
-                  className="workers-save-button"
+                  className="workers-submit-button"
+                  disabled={submitting}
                 >
-                  <UserPlus size={19} />
-                  Create worker
+                  {submitting ? (
+                    <>
+                      <Loader2
+                        size={17}
+                        className="workers-spinning"
+                      />
+                      Adding...
+                    </>
+                  ) : (
+                    <>
+                      <UserPlus size={17} />
+                      Add Worker
+                    </>
+                  )}
                 </button>
+
               </div>
+
             </form>
+
           </div>
         </div>
       )}
 
       <OwnerBottomNav />
+
     </div>
   );
-};
+}
 
 export default Workers;

@@ -1,0 +1,722 @@
+/* =========================================================
+   Owner Workers — mobile-first styles
+   File: src/styles/worker.css
+
+   Design: orange + white, same palette as the home & more pages.
+   ========================================================= */
+
+.workers-page {
+    --o-bg: #f6f7f9;
+    --o-card: #ffffff;
+    --o-border: #dfe3e8;
+    --o-text: #101216;
+    --o-muted: #64748b;
+    --o-slate: #5b6b86;
+    --o-navy: #111317;
+    --o-orange: #d9480f;
+    --o-orange-dark: #b93a09;
+    --o-peach: #ffe6cf;
+    --o-green: #2b8a3e;
+    --o-green-dark: #237033;
+    --o-green-soft: #e3f4e7;
+    --o-red: #c92a2a;
+    --o-red-soft: #ffe3e3;
+    --o-gray: #eceff4;
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 18px calc(104px + env(safe-area-inset-bottom, 0px));
+    background: var(--o-bg);
+    color: var(--o-text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.workers-page *,
+.workers-page *::before,
+.workers-page *::after {
+    box-sizing: border-box;
+}
+
+.workers-page h1,
+.workers-page h2,
+.workers-page h3,
+.workers-page p {
+    margin: 0;
+}
+
+.workers-page button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.workers-page button:focus-visible,
+.workers-page input:focus-visible {
+    outline: 2px solid var(--o-orange);
+    outline-offset: 2px;
+}
+
+@keyframes workers-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.workers-spinning {
+    animation: workers-spin 0.85s linear infinite;
+}
+
+/* ---------- Header ---------- */
+
+.workers-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 -18px;
+    padding: calc(16px + env(safe-area-inset-top, 0px)) 18px 16px;
+    background: var(--o-navy);
+    color: #ffffff;
+}
+
+.workers-header > div {
+    min-width: 0;
+}
+
+.workers-header h1 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.workers-header p {
+    margin-top: 3px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.72);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.workers-add-button {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 13px;
+    background: var(--o-orange);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    white-space: nowrap;
+    transition: transform 0.12s ease, background-color 0.15s ease;
+}
+
+.workers-add-button:active {
+    transform: scale(0.96);
+    background: var(--o-orange-dark);
+}
+
+/* ---------- Summary Cards ---------- */
+
+.workers-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin-top: 16px;
+}
+
+.workers-summary-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    padding: 13px 11px;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 17px;
+}
+
+.workers-summary-card:nth-child(1) {
+    border-top: 3px solid var(--o-orange);
+}
+
+.workers-summary-card:nth-child(2) {
+    border-top: 3px solid var(--o-green);
+}
+
+.workers-summary-card:nth-child(3) {
+    border-top: 3px solid var(--o-red);
+}
+
+.workers-summary-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--o-peach);
+    color: var(--o-orange-dark);
+}
+
+.workers-active-icon {
+    background: var(--o-green-soft);
+    color: var(--o-green);
+}
+
+.workers-inactive-icon {
+    background: var(--o-red-soft);
+    color: var(--o-red);
+}
+
+.workers-summary-card p {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--o-muted);
+}
+
+.workers-summary-card h2 {
+    margin-top: 2px;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--o-text);
+}
+
+.workers-summary-card:nth-child(2) h2 {
+    color: var(--o-green-dark);
+}
+
+.workers-summary-card:nth-child(3) h2 {
+    color: var(--o-red);
+}
+
+/* ---------- Worker List Header ---------- */
+
+.workers-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.workers-list-header h2 {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.workers-list-header p {
+    margin-top: 2px;
+    font-size: 12.5px;
+    color: var(--o-muted);
+}
+
+.workers-refresh-button {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--o-border);
+    border-radius: 13px;
+    background: var(--o-card);
+    color: var(--o-slate);
+    transition: transform 0.12s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.workers-refresh-button:active:not(:disabled) {
+    transform: scale(0.95);
+    border-color: var(--o-orange);
+    color: var(--o-orange);
+}
+
+.workers-refresh-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ---------- Search ---------- */
+
+.workers-search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    padding: 0 14px;
+    height: 46px;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 15px;
+    color: var(--o-muted);
+    transition: border-color 0.15s ease;
+}
+
+.workers-search-box:focus-within {
+    border-color: var(--o-orange);
+    color: var(--o-orange);
+}
+
+.workers-search-box svg {
+    flex-shrink: 0;
+}
+
+.workers-search-box input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--o-text);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+}
+
+.workers-search-box input::placeholder {
+    color: var(--o-muted);
+}
+
+/* ---------- Loading & Empty States ---------- */
+
+.workers-loading,
+.workers-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 36px 20px;
+    background: var(--o-card);
+    border: 1px dashed var(--o-border);
+    border-radius: 18px;
+    color: var(--o-muted);
+    text-align: center;
+}
+
+.workers-loading svg,
+.workers-empty svg {
+    color: var(--o-orange);
+}
+
+.workers-empty h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--o-text);
+}
+
+.workers-loading p,
+.workers-empty p {
+    font-size: 13.5px;
+    line-height: 1.45;
+}
+
+.workers-empty button {
+    margin-top: 4px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 12px;
+    background: var(--o-orange);
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+}
+
+.workers-empty button:active {
+    background: var(--o-orange-dark);
+}
+
+/* ---------- Worker List & Member Card ---------- */
+
+.workers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.workers-member-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 18px;
+}
+
+.workers-member-top {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.workers-member-avatar {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    background: var(--o-peach);
+    color: var(--o-orange-dark);
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.workers-member-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.workers-member-info h3 {
+    font-size: 15.5px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--o-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.workers-status {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.workers-status-active {
+    background: var(--o-green-soft);
+    color: var(--o-green-dark);
+}
+
+.workers-status-inactive {
+    background: var(--o-red-soft);
+    color: var(--o-red);
+}
+
+/* Member Details */
+
+.workers-member-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 13px;
+    border-radius: 13px;
+    background: var(--o-bg);
+}
+
+.workers-member-details > div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--o-slate);
+}
+
+.workers-member-details svg {
+    flex-shrink: 0;
+    color: var(--o-orange);
+}
+
+.workers-member-details span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Activate / Deactivate Buttons */
+
+.workers-deactivate-button,
+.workers-activate-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 13.5px;
+    font-weight: 800;
+    transition: transform 0.12s ease, background-color 0.15s ease;
+}
+
+.workers-deactivate-button {
+    border: 1px solid #f5b5b5;
+    background: var(--o-red-soft);
+    color: var(--o-red);
+}
+
+.workers-deactivate-button:active:not(:disabled) {
+    transform: scale(0.98);
+    background: #ffd4d4;
+}
+
+.workers-activate-button {
+    border: 1px solid #b7e4c2;
+    background: var(--o-green-soft);
+    color: var(--o-green-dark);
+}
+
+.workers-activate-button:active:not(:disabled) {
+    transform: scale(0.98);
+    background: #d0edd7;
+}
+
+.workers-deactivate-button:disabled,
+.workers-activate-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ---------- Add Worker Modal ---------- */
+
+.workers-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(17, 19, 23, 0.58);
+    backdrop-filter: blur(2px);
+}
+
+.workers-modal {
+    width: 100%;
+    max-width: 448px;
+    max-height: 90dvh;
+    overflow-y: auto;
+    padding: 20px 18px calc(20px + env(safe-area-inset-bottom, 0px));
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 24px;
+    box-shadow: 0 20px 44px rgba(16, 18, 22, 0.24);
+}
+
+.workers-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--o-gray);
+}
+
+.workers-modal-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.workers-modal-header p {
+    margin-top: 3px;
+    font-size: 12.5px;
+    color: var(--o-muted);
+}
+
+.workers-modal-close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--o-border);
+    border-radius: 12px;
+    background: var(--o-bg);
+    color: var(--o-slate);
+}
+
+.workers-modal-close:active:not(:disabled) {
+    background: var(--o-gray);
+}
+
+/* Form */
+
+.workers-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.workers-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.workers-form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--o-text);
+}
+
+.workers-form-group input {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid var(--o-border);
+    border-radius: 13px;
+    background: var(--o-bg);
+    color: var(--o-text);
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.workers-form-group input:focus {
+    border-color: var(--o-orange);
+    background: var(--o-card);
+}
+
+.workers-form-error {
+    padding: 11px 13px;
+    background: var(--o-red-soft);
+    border: 1px solid #f5b5b5;
+    border-radius: 13px;
+    color: var(--o-red);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.workers-form-actions {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.workers-cancel-button,
+.workers-submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 46px;
+    padding: 0 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 800;
+    transition: transform 0.12s ease, background-color 0.15s ease;
+}
+
+.workers-cancel-button {
+    border: 1px solid var(--o-border);
+    background: var(--o-gray);
+    color: var(--o-slate);
+}
+
+.workers-cancel-button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.workers-submit-button {
+    border: none;
+    background: var(--o-orange);
+    color: #ffffff;
+}
+
+.workers-submit-button:active:not(:disabled) {
+    transform: scale(0.98);
+    background: var(--o-orange-dark);
+}
+
+.workers-cancel-button:disabled,
+.workers-submit-button:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .workers-page {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .workers-header {
+        margin-left: -16px;
+        margin-right: -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .workers-header h1 {
+        font-size: 18.5px;
+    }
+
+    .workers-add-button {
+        padding: 9px 11px;
+        font-size: 12px;
+    }
+
+    .workers-summary {
+        gap: 7px;
+    }
+
+    .workers-summary-card {
+        padding: 11px 9px;
+    }
+
+    .workers-summary-icon {
+        width: 34px;
+        height: 34px;
+    }
+
+    .workers-summary-card h2 {
+        font-size: 18px;
+    }
+
+    .workers-member-card {
+        padding: 14px;
+    }
+
+    .workers-modal-overlay {
+        padding: 12px;
+    }
+
+    .workers-modal {
+        padding: 18px 15px calc(18px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .workers-spinning {
+        animation: none;
+    }
+
+    .workers-page * {
+        transition: none !important;
+    }
+}

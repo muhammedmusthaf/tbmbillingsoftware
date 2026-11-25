@@ -1,0 +1,352 @@
+/* =========================================================
+   Owner More — mobile-first styles
+   File: src/styles/more.css
+
+   Design: orange + white, same palette as the home & worker pages.
+   ========================================================= */
+
+.more-page {
+    --o-bg: #f6f7f9;
+    --o-card: #ffffff;
+    --o-border: #dfe3e8;
+    --o-text: #101216;
+    --o-muted: #64748b;
+    --o-slate: #5b6b86;
+    --o-navy: #111317;
+    --o-orange: #d9480f;
+    --o-orange-dark: #b93a09;
+    --o-peach: #ffe6cf;
+    --o-green: #2b8a3e;
+    --o-green-dark: #237033;
+    --o-green-soft: #e3f4e7;
+    --o-red: #c92a2a;
+    --o-red-soft: #ffe3e3;
+    --o-gray: #eceff4;
+
+    box-sizing: border-box;
+    min-height: 100vh;
+    min-height: 100dvh;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 18px calc(104px + env(safe-area-inset-bottom, 0px));
+    background: var(--o-bg);
+    color: var(--o-text);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.more-page *,
+.more-page *::before,
+.more-page *::after {
+    box-sizing: border-box;
+}
+
+.more-page h1,
+.more-page h2,
+.more-page h3,
+.more-page h4,
+.more-page p {
+    margin: 0;
+}
+
+.more-page button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.more-page button:focus-visible {
+    outline: 2px solid var(--o-orange);
+    outline-offset: 2px;
+}
+
+/* ---------- Header ---------- */
+
+.more-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 -18px;
+    padding: calc(16px + env(safe-area-inset-top, 0px)) 18px 16px;
+    background: var(--o-navy);
+    color: #ffffff;
+}
+
+.more-header h1 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.more-header p {
+    margin-top: 3px;
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.72);
+}
+
+/* ---------- Profile Card ---------- */
+
+.more-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 18px;
+    padding: 16px;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-left: 4px solid var(--o-orange);
+    border-radius: 20px;
+}
+
+.more-profile-avatar {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: var(--o-peach);
+    color: var(--o-orange-dark);
+}
+
+.more-profile-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.more-profile-info h2 {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--o-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.more-profile-info p {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--o-green-soft);
+    color: var(--o-green-dark);
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.more-profile-arrow {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--o-border);
+    border-radius: 12px;
+    background: var(--o-bg);
+    color: var(--o-slate);
+    transition: transform 0.12s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.more-profile-arrow:active {
+    transform: scale(0.95);
+    background: var(--o-peach);
+    color: var(--o-orange-dark);
+}
+
+/* ---------- Menu Sections ---------- */
+
+.more-section {
+    margin-top: 22px;
+}
+
+.more-section h3 {
+    margin-bottom: 10px;
+    padding: 0 2px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--o-muted);
+}
+
+.more-menu-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--o-card);
+    border: 1px solid var(--o-border);
+    border-radius: 18px;
+}
+
+.more-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    padding: 14px 16px;
+    border: none;
+    border-bottom: 1px solid var(--o-gray);
+    background: transparent;
+    color: var(--o-text);
+    text-align: left;
+    transition: transform 0.12s ease, background-color 0.15s ease;
+}
+
+.more-menu-item:last-child {
+    border-bottom: none;
+}
+
+.more-menu-item:active {
+    background: var(--o-bg);
+    transform: scale(0.99);
+}
+
+.more-menu-icon {
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: var(--o-peach);
+    color: var(--o-orange-dark);
+}
+
+.more-menu-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.more-menu-content h4 {
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--o-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.more-menu-content p {
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: var(--o-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.more-menu-arrow {
+    flex-shrink: 0;
+    color: var(--o-muted);
+}
+
+/* ---------- Logout ---------- */
+
+.more-logout-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    margin-top: 24px;
+    padding: 14px 18px;
+    border: 1px solid #f5b5b5;
+    border-radius: 16px;
+    background: var(--o-red-soft);
+    color: var(--o-red);
+    font-size: 14.5px;
+    font-weight: 800;
+    transition: transform 0.12s ease, background-color 0.15s ease;
+}
+
+.more-logout-button:active {
+    transform: scale(0.98);
+    background: #ffd4d4;
+}
+
+/* ---------- Footer ---------- */
+
+.more-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
+    padding: 6px 12px;
+    color: var(--o-muted);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .more-page {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .more-header {
+        margin-left: -16px;
+        margin-right: -16px;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .more-header h1 {
+        font-size: 18.5px;
+    }
+
+    .more-profile-card {
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .more-profile-avatar {
+        width: 46px;
+        height: 46px;
+    }
+
+    .more-profile-info h2 {
+        font-size: 15.5px;
+    }
+
+    .more-menu-item {
+        gap: 11px;
+        padding: 13px 14px;
+    }
+
+    .more-menu-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .more-menu-content h4 {
+        font-size: 13.5px;
+    }
+
+    .more-logout-button {
+        padding: 13px 16px;
+        font-size: 14px;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .more-page * {
+        transition: none !important;
+    }
+}

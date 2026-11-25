@@ -74,6 +74,15 @@ const customerSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    whatsappConsent: {
+  type: Boolean,
+  default: false,
+},
+
+whatsappConsentDate: {
+  type: Date,
+  default: null,
+},
   },
   {
     timestamps: true,

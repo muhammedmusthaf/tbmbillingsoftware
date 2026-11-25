@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const creditPaymentSchema = new mongoose.Schema(
@@ -60,10 +61,29 @@ const creditPaymentSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+
+    // Unique key for preventing duplicate payment requests
+    idempotencyKey: {
+      type: String,
+      trim: true,
+      default: undefined,
+    },
+
+    // Identifies the payment details associated with the key
+    requestFingerprint: {
+      type: String,
+      default: undefined,
+    },
   },
   {
     timestamps: true,
   }
+);
+
+// Existing payment records without keys remain valid.
+creditPaymentSchema.index(
+  { idempotencyKey: 1 },
+  { unique: true, sparse: true }
 );
 
 const CreditPayment = mongoose.model(

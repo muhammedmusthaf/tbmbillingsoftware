@@ -1,5 +1,7 @@
+import Notification from "../models/Notification.model.js";
 import Product from "../models/Product.model.js";
 import Setting from "../models/Setting.model.js";
+import checkCreditDueNotifications from "../utils/checkCreditDueNotifications.js";
 
 // ==========================================
 // GET INVENTORY NOTIFICATIONS
@@ -168,6 +170,91 @@ export const getInventoryNotifications = async (
       "NOTIFICATION ERROR:",
       error
     );
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+// ==========================================
+// GET SAVED NOTIFICATIONS
+// ==========================================
+export const getSavedNotifications = async (req, res) => {
+  try {
+    await checkCreditDueNotifications();
+    const notifications = await Notification.find()
+      .sort({ createdAt: -1 });
+
+    const unreadCount = await Notification.countDocuments({
+      isRead: false,
+    });
+
+    res.status(200).json({
+      success: true,
+      count: notifications.length,
+      unreadCount,
+      notifications,
+    });
+  } catch (error) {
+    console.error("GET NOTIFICATIONS ERROR:", error);
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+// ==========================================
+// MARK SINGLE NOTIFICATION AS READ
+// ==========================================
+export const markNotificationRead = async (req, res) => {
+  try {
+    const notification = await Notification.findByIdAndUpdate(
+      req.params.id,
+      { isRead: true },
+      { new: true, runValidators: true }
+    );
+
+    if (!notification) {
+      return res.status(404).json({
+        message: "Notification not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Notification marked as read",
+      notification,
+    });
+  } catch (error) {
+    console.error("MARK NOTIFICATION ERROR:", error);
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
+// ==========================================
+// MARK ALL NOTIFICATIONS AS READ
+// ==========================================
+export const markAllNotificationsRead = async (req, res) => {
+  try {
+    await Notification.updateMany(
+      { isRead: false },
+      { $set: { isRead: true } }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "All notifications marked as read",
+    });
+  } catch (error) {
+    console.error("MARK ALL NOTIFICATIONS ERROR:", error);
 
     res.status(500).json({
       message: "Server error",

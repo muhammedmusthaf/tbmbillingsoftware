@@ -3,6 +3,7 @@ import Return from "../models/Return.model.js";
 import Product from "../models/Product.model.js";
 import Customer from "../models/Customer.model.js";
 import Invoice from "../models/Invoice.model.js";
+import createNotification from "../utils/createnotification.js";
 
 
 // CREATE RETURN
@@ -364,6 +365,19 @@ export const createReturn = async (req, res) => {
     }
 
     await invoice.save();
+    // CREATE RETURN NOTIFICATION
+await createNotification({
+  type: "return_processed",
+  title: "Product Return Processed",
+  message:
+    `Return processed for invoice ${invoice.invoiceNumber}. ` +
+    `Customer: ${customer?.name || invoice.customerName || "Walk-in Customer"}. ` +
+    `Refund amount: ₹${totalRefundAmount.toFixed(2)}. ` +
+    `Refund method: ${refundMethod.replace("_", " ")}.`,
+  priority: "medium",
+  relatedId: newReturn._id,
+  relatedModel: "Return",
+});
 
     // -----------------------------------
     // FINAL RESPONSE

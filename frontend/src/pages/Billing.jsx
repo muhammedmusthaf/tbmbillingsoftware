@@ -52,7 +52,7 @@ const Billing = () => {
   try {
     storedUser = JSON.parse(
       localStorage.getItem("user") ||
-        "{}"
+      "{}"
     );
   } catch {
     storedUser = {};
@@ -147,7 +147,7 @@ const Billing = () => {
 
       logo:
         data.logo || "",
-    showGST:
+      showGST:
         data.showGST === true,
     });
   };
@@ -177,7 +177,7 @@ const Billing = () => {
 
         setError(
           err.response?.data?.message ||
-            "Unable to load billing data."
+          "Unable to load billing data."
         );
 
       } finally {
@@ -211,127 +211,127 @@ const Billing = () => {
     }, [products]);
 
 
- // ==========================================
-// SEARCH HELPERS
-// ==========================================
+  // ==========================================
+  // SEARCH HELPERS
+  // ==========================================
 
-const normalizeSearchText = (value = "") => {
-  return String(value)
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, "");
-};
-
-
-// Allows small missing letters while typing.
-// Example:
-// ultratch -> ultratech
-const fuzzyMatch = (text, query) => {
-  const normalizedText =
-    normalizeSearchText(text);
-
-  const normalizedQuery =
-    normalizeSearchText(query);
-
-  if (!normalizedQuery) {
-    return true;
-  }
+  const normalizeSearchText = (value = "") => {
+    return String(value)
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+  };
 
 
-  // Exact / partial match first
-  if (
-    normalizedText.includes(
-      normalizedQuery
-    )
-  ) {
-    return true;
-  }
+  // Allows small missing letters while typing.
+  // Example:
+  // ultratch -> ultratech
+  const fuzzyMatch = (text, query) => {
+    const normalizedText =
+      normalizeSearchText(text);
 
+    const normalizedQuery =
+      normalizeSearchText(query);
 
-  // Fuzzy sequence match
-  let queryIndex = 0;
-
-  for (
-    let i = 0;
-    i < normalizedText.length;
-    i++
-  ) {
-    if (
-      normalizedText[i] ===
-      normalizedQuery[queryIndex]
-    ) {
-      queryIndex++;
+    if (!normalizedQuery) {
+      return true;
     }
 
+
+    // Exact / partial match first
     if (
-      queryIndex ===
-      normalizedQuery.length
+      normalizedText.includes(
+        normalizedQuery
+      )
     ) {
       return true;
     }
-  }
-
-  return false;
-};
 
 
-// ==========================================
-// FILTER PRODUCTS
-// ==========================================
+    // Fuzzy sequence match
+    let queryIndex = 0;
 
-const filteredProducts =
-  useMemo(() => {
+    for (
+      let i = 0;
+      i < normalizedText.length;
+      i++
+    ) {
+      if (
+        normalizedText[i] ===
+        normalizedQuery[queryIndex]
+      ) {
+        queryIndex++;
+      }
 
-    const searchValue =
-      search.trim();
+      if (
+        queryIndex ===
+        normalizedQuery.length
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  };
 
 
-    return products.filter(
-      (product) => {
+  // ==========================================
+  // FILTER PRODUCTS
+  // ==========================================
 
-        // CATEGORY FILTER
-        const matchesCategory =
-          selectedCategory === "All" ||
-          product.category ===
+  const filteredProducts =
+    useMemo(() => {
+
+      const searchValue =
+        search.trim();
+
+
+      return products.filter(
+        (product) => {
+
+          // CATEGORY FILTER
+          const matchesCategory =
+            selectedCategory === "All" ||
+            product.category ===
             selectedCategory;
 
 
-        // SEARCH FILTER
-        const matchesSearch =
-          !searchValue ||
-          fuzzyMatch(
-            product.name,
-            searchValue
-          ) ||
-          fuzzyMatch(
-            product.productCode,
-            searchValue
-          ) ||
-          fuzzyMatch(
-            product.barcode,
-            searchValue
-          ) ||
-          fuzzyMatch(
-            product.brand,
-            searchValue
-          ) ||
-          fuzzyMatch(
-            product.category,
-            searchValue
+          // SEARCH FILTER
+          const matchesSearch =
+            !searchValue ||
+            fuzzyMatch(
+              product.name,
+              searchValue
+            ) ||
+            fuzzyMatch(
+              product.productCode,
+              searchValue
+            ) ||
+            fuzzyMatch(
+              product.barcode,
+              searchValue
+            ) ||
+            fuzzyMatch(
+              product.brand,
+              searchValue
+            ) ||
+            fuzzyMatch(
+              product.category,
+              searchValue
+            );
+
+
+          return (
+            matchesCategory &&
+            matchesSearch
           );
+        }
+      );
 
-
-        return (
-          matchesCategory &&
-          matchesSearch
-        );
-      }
-    );
-
-  }, [
-    products,
-    search,
-    selectedCategory,
-  ]);
+    }, [
+      products,
+      search,
+      selectedCategory,
+    ]);
   // ==========================================
   // FORMAT CURRENCY
   // ==========================================
@@ -405,13 +405,13 @@ const filteredProducts =
         return previousCart.map(
           (item) =>
             item.productId ===
-            product._id
+              product._id
               ? {
-                  ...item,
-                  quantity:
-                    item.quantity +
-                    1,
-                }
+                ...item,
+                quantity:
+                  item.quantity +
+                  1,
+              }
               : item
         );
       }
@@ -437,7 +437,7 @@ const filteredProducts =
           sellingPrice:
             Number(
               product.sellingPrice ||
-                0
+              0
             ),
 
           gst:
@@ -540,43 +540,43 @@ const filteredProducts =
   // BILL TOTAL
   // ==========================================
 
- const totals =
-  useMemo(() => {
+  const totals =
+    useMemo(() => {
 
-    let subtotal = 0;
-    let gstAmount = 0;
+      let subtotal = 0;
+      let gstAmount = 0;
 
-    cart.forEach(
-      (item) => {
+      cart.forEach(
+        (item) => {
 
-        const taxable =
-          item.sellingPrice *
-          item.quantity;
+          const taxable =
+            item.sellingPrice *
+            item.quantity;
 
-        const gst =
-          settings.showGST
-            ? taxable *
+          const gst =
+            settings.showGST
+              ? taxable *
               (item.gst / 100)
-            : 0;
+              : 0;
 
-        subtotal += taxable;
-        gstAmount += gst;
-      }
-    );
+          subtotal += taxable;
+          gstAmount += gst;
+        }
+      );
 
-    return {
-      subtotal,
-      gstAmount,
-
-      grandTotal:
-        subtotal +
+      return {
+        subtotal,
         gstAmount,
-    };
 
-  }, [
-    cart,
-    settings.showGST,
-  ]);
+        grandTotal:
+          subtotal +
+          gstAmount,
+      };
+
+    }, [
+      cart,
+      settings.showGST,
+    ]);
 
 
   // ==========================================
@@ -713,7 +713,7 @@ const filteredProducts =
           <div className="billing-user-role">
 
             {storedUser?.role ===
-            "owner"
+              "owner"
               ? "Owner"
               : "Worker"}
 
@@ -843,12 +843,11 @@ const filteredProducts =
               <button
                 type="button"
                 key={category}
-                className={`billing-category-button ${
-                  selectedCategory ===
-                  category
+                className={`billing-category-button ${selectedCategory ===
+                    category
                     ? "billing-category-active"
                     : ""
-                }`}
+                  }`}
                 onClick={() =>
                   setSelectedCategory(
                     category
@@ -999,12 +998,12 @@ const filteredProducts =
                           )}
 
 
-                         {settings.showGST && (
-  <>
-    {" · GST "}
-    {item.gst}%
-  </>
-)}
+                          {settings.showGST && (
+                            <>
+                              {" · GST "}
+                              {item.gst}%
+                            </>
+                          )}
 
                         </p>
 
@@ -1096,7 +1095,7 @@ const filteredProducts =
 
 
         {filteredProducts.length ===
-        0 ? (
+          0 ? (
 
           <div className="billing-no-products">
             No products found.
@@ -1121,7 +1120,7 @@ const filteredProducts =
                   ) <=
                   Number(
                     product.minimumStock ||
-                      0
+                    0
                   );
 
 
@@ -1199,13 +1198,12 @@ const filteredProducts =
 
 
                       <p
-                        className={`billing-product-stock ${
-                          outOfStock
+                        className={`billing-product-stock ${outOfStock
                             ? "billing-product-out-stock"
                             : lowStock
                               ? "billing-product-low-stock"
                               : "billing-product-in-stock"
-                        }`}
+                          }`}
                       >
 
                         {outOfStock

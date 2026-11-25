@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../styles/login.css";
+import "../styles/Login.css";
 import {
   User,
   LockKeyhole,
@@ -135,10 +135,15 @@ const Login = () => {
       // ======================================
       // GO TO HOME
       // ======================================
-
-      navigate("/", {
-        replace: true,
-      });
+if (user.role === "owner") {
+  navigate("/", { replace: true });
+} else if (user.role === "worker") {
+  navigate("/worker", { replace: true });
+} else {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+  setError("Invalid account role.");
+}
 
     } catch (err) {
       console.error(

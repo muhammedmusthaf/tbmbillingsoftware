@@ -1,30 +1,43 @@
-/* ==========================================
-   OWNER BOTTOM NAV — owner.css
-   Uses only the classNames already in OwnerBottomNav.jsx
-   Colors match home.css
-   ========================================== */
+/* =========================================================
+   Owner Bottom Navigation — mobile-first styles
+   File: src/styles/owner.css
+
+   Design: orange + white, same palette as the owner & worker pages.
+   Note: Supports both `.owner-nav-item` / `.owner-nav-active`
+   and `.owner-bottom-nav-item` / `.owner-bottom-nav-active`.
+   ========================================================= */
 
 .owner-bottom-nav {
+    --o-bg: #f6f7f9;
+    --o-card: #ffffff;
+    --o-border: #dfe3e8;
+    --o-text: #101216;
+    --o-muted: #64748b;
+    --o-slate: #5b6b86;
+    --o-navy: #111317;
+    --o-orange: #d9480f;
+    --o-orange-dark: #b93a09;
+    --o-peach: #ffe6cf;
+    --o-gray: #eceff4;
+
     position: fixed;
-    left: 50%;
     bottom: 0;
+    left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
-
+    z-index: 40;
     width: 100%;
-    max-width: 430px;
-
+    max-width: 480px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     align-items: center;
-
-    padding: 10px 6px calc(10px + env(safe-area-inset-bottom, 0px));
-
-    background: #ffffff;
-    border-top: 1px solid #dfe3e8;
-
-    font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
+    gap: 4px;
+    padding: 8px 10px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: var(--o-card);
+    border-top: 1px solid var(--o-border);
+    box-shadow: 0 -6px 20px rgba(16, 18, 22, 0.06);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .owner-bottom-nav *,
@@ -33,49 +46,115 @@
     box-sizing: border-box;
 }
 
-/* ---------- Nav item ---------- */
+/* ---------- Nav Items ---------- */
 
 .owner-nav-item,
 .owner-bottom-nav-item {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-
-    padding: 4px 0;
+    gap: 4px;
+    min-width: 0;
+    padding: 7px 4px;
     border: none;
+    border-radius: 14px;
     background: transparent;
-
-    color: #5b6b86;
+    color: var(--o-muted);
     font-family: inherit;
     cursor: pointer;
+    transition: transform 0.12s ease, background-color 0.15s ease, color 0.15s ease;
+}
 
-    -webkit-tap-highlight-color: transparent;
-    transition: color 0.15s ease;
+.owner-nav-item:active,
+.owner-bottom-nav-item:active {
+    transform: scale(0.94);
+    background: var(--o-gray);
+}
+
+.owner-nav-item:focus-visible,
+.owner-bottom-nav-item:focus-visible {
+    outline: 2px solid var(--o-orange);
+    outline-offset: 2px;
 }
 
 .owner-nav-item svg,
 .owner-bottom-nav-item svg {
     flex-shrink: 0;
+    transition: transform 0.15s ease;
 }
 
 .owner-nav-item span,
 .owner-bottom-nav-item span,
 .owner-bottom-nav-label {
-    font-size: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+/* ---------- Active State ---------- */
+
+.owner-nav-active,
+.owner-bottom-nav-active {
+    background: var(--o-peach);
+    color: var(--o-orange-dark);
+}
+
+.owner-nav-active:active,
+.owner-bottom-nav-active:active {
+    background: #ffd9b3;
+}
+
+.owner-nav-active svg,
+.owner-bottom-nav-active svg {
+    color: var(--o-orange);
+    transform: translateY(-1px);
+}
+
+.owner-nav-active span,
+.owner-bottom-nav-active span,
+.owner-bottom-nav-active .owner-bottom-nav-label {
     font-weight: 800;
-    line-height: 1.2;
+    color: var(--o-orange-dark);
 }
 
-.owner-nav-item:active,
-.owner-bottom-nav-item:active {
-    opacity: 0.7;
+/* ---------- Small phones ---------- */
+
+@media (max-width: 360px) {
+    .owner-bottom-nav {
+        gap: 2px;
+        padding: 7px 6px calc(8px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .owner-nav-item,
+    .owner-bottom-nav-item {
+        padding: 6px 2px;
+        border-radius: 12px;
+    }
+
+    .owner-nav-item svg,
+    .owner-bottom-nav-item svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .owner-nav-item span,
+    .owner-bottom-nav-item span,
+    .owner-bottom-nav-label {
+        font-size: 10px;
+    }
 }
 
-/* ---------- Active ---------- */
+/* ---------- Reduced motion ---------- */
 
-.owner-nav-item.owner-nav-active,
-.owner-bottom-nav-item.owner-bottom-nav-active {
-    color: #d9480f;
+@media (prefers-reduced-motion: reduce) {
+    .owner-bottom-nav * {
+        transition: none !important;
+    }
 }
