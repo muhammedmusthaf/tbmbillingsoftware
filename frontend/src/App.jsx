@@ -13,7 +13,7 @@ import Billing from "./pages/Billing";
 import Payment from "./pages/Payment";
 import Invoices from "./pages/Invoices";
 import Inventory from "./pages/Inventory";
-import StockIn from "./pages/Stockin";
+
 import AddProduct from "./pages/Addproduct";
 import Customers from "./pages/Customers";
 import AddCustomer from "./pages/AddCustomer";
@@ -25,6 +25,7 @@ import More from "./pages/More";
 import Settings from "./pages/Settings";
 import Notifications from "./pages/Notifications";
 import Returns from "./pages/Returns";
+import StockIn from "./pages/StockIn";
 
 import WorkerDashboard from "./pages/WorkerDashboard";
 import WorkerBilling from "./pages/WorkerBilling";
