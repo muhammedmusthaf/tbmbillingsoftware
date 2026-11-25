@@ -21,12 +21,12 @@ import processWhatsAppReminders from './services/whatsappReminder.service.js';
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://tbmbillingsoftware.vercel.app/",
-    credentials: true,
-  })
-);
+app.use(cors({
+    origin: [
+        "https://tbmbillingsoftware.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+}));
 app.use(express.json());
 
 await connectDB();
