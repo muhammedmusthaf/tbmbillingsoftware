@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1096623791039",
+    "project_id": "tbm-build-mart",
+    "storage_bucket": "tbm-build-mart.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096623791039:android:dbe19d61ad6e523b68df0a",
+        "android_client_info": {
+          "package_name": "com.tbmbuildmart.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_A7kCjogpGM5aZvU3i8brpS88sGofdl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

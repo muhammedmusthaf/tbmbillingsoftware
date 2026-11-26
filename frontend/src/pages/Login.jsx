@@ -9,6 +9,7 @@ import {
   LogIn,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { registerPushNotifications } from "../utils/pushNotifications";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -129,7 +130,10 @@ const Login = () => {
       localStorage.setItem(
         "user",
         JSON.stringify(user)
+      
+
       );
+      registerPushNotifications();
 
 
       // ======================================

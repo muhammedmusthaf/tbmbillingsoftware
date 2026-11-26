@@ -17,6 +17,7 @@ import setting from './routes/setting.route.js';
 import notification from './routes/notification.route.js';
 import checkCreditDueNotifications from './utils/checkCreditDueNotifications.js';
 import processWhatsAppReminders from './services/whatsappReminder.service.js';
+import device from "./routes/device.route.js";
 
 
 const app = express();
@@ -110,6 +111,7 @@ app.use("/api/reports", report);
 app.use("/api/workers", worker);
 app.use("/api/settings", setting);
 app.use("/api/notifications", notification);
+app.use("/api/device", device);
 app.get('/', (req, res) => res.send('Backend running...'));
 
 const PORT = process.env.PORT || 5000;

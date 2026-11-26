@@ -33,6 +33,8 @@ import WorkerInvoices from "./pages/WorkerInvoices";
 import WorkerBillhistory from "./pages/WorkerBillhistory";
 import AddProduct from "./pages/AddProduct";
 import StockIn from "./pages/StockIn";
+import { registerPushNotifications } from "./utils/pushNotifications";
+import { useEffect } from "react";
 
 function getUser() {
   try {
@@ -53,6 +55,12 @@ function getDashboardPath() {
 }
 
 function App() {
+   useEffect(() => {
+    if (localStorage.getItem("token")) {
+      registerPushNotifications();
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
