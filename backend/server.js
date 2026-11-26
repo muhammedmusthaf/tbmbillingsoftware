@@ -26,7 +26,14 @@ app.use(cors({
         "https://tbmbillingsoftware.vercel.app",
         "https://localhost"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+ methods: [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "OPTIONS"
+    ],
     credentials: true
 }));
 app.use(express.json());
