@@ -1,20 +1,26 @@
-/* Reset default browser styles */
+
+/* Global reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- 
 }
 
-/* Ensure full viewport height */
+/* Full viewport foundation */
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
 
-
-/* Root container */
-body,html,#root {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh; */
+/* Body defaults */
+body {
+  font-family: Arial, sans-serif;
   overflow-x: hidden;
+}
+
+/* React root */
+#root {
+  min-height: 100vh;
 }
