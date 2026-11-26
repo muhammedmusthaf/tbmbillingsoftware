@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TBM Build Mart</string>
+    <string name="title_activity_main">TBM Build Mart</string>
+    <string name="package_name">com.tbmbuildmart.app</string>
+    <string name="custom_url_scheme">com.tbmbuildmart.app</string>
+</resources>
