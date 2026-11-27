@@ -1,6 +1,7 @@
 
 import Invoice from "../models/Invoice.model.js";
 import Notification from "../models/Notification.model.js";
+import { sendOwnerPushNotification } from "../services/ownerPush.service.js";
 
 const checkCreditDueNotifications = async () => {
   try {
@@ -46,17 +47,33 @@ const checkCreditDueNotifications = async () => {
         continue;
       }
 
-      await Notification.create({
+      const title = "Customer Credit Overdue";
+
+      const message =
+        `${invoice.customerName} has an overdue payment of ` +
+        `₹${invoice.creditAmount.toFixed(2)} for invoice ` +
+        `${invoice.invoiceNumber}.`;
+
+      // Save notification in MongoDB
+      const notification = await Notification.create({
         type: "credit_due",
-        title: "Customer Credit Overdue",
-        message:
-          `${invoice.customerName} has an overdue payment of ` +
-          `₹${invoice.creditAmount.toFixed(2)} for invoice ` +
-          `${invoice.invoiceNumber}.`,
+        title,
+        message,
         priority: "high",
         isRead: false,
         relatedId: invoice._id,
         relatedModel: "Invoice",
+      });
+
+      // Send push notification to Owner only
+      await sendOwnerPushNotification({
+        title,
+        body: message,
+        data: {
+          type: "credit_due",
+          notificationId: notification._id.toString(),
+          relatedId: invoice._id.toString(),
+        },
       });
     }
 

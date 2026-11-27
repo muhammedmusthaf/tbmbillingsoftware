@@ -2,6 +2,7 @@
 import Product from "../models/Product.model.js";
 import Setting from "../models/Setting.model.js";
 import Notification from "../models/Notification.model.js";
+import { sendOwnerPushNotification } from "../services/ownerPush.service.js";
 
 const checkstocknotification = async (productId) => {
   try {
@@ -61,7 +62,7 @@ const checkstocknotification = async (productId) => {
       return;
     }
 
-    // Resolve the previous different stock alert
+    // Resolve previous different stock alert
     await Notification.updateMany(
       {
         relatedId: product._id,
@@ -73,13 +74,25 @@ const checkstocknotification = async (productId) => {
       }
     );
 
-    await Notification.create({
+    // Save notification in MongoDB
+    const notification = await Notification.create({
       type,
       title,
       message,
       priority,
       relatedId: product._id,
       relatedModel: "Product",
+    });
+
+    // Send push notification to Owner only
+    await sendOwnerPushNotification({
+      title,
+      body: message,
+      data: {
+        type,
+        notificationId: notification._id.toString(),
+        relatedId: product._id.toString(),
+      },
     });
 
   } catch (error) {
