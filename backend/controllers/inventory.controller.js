@@ -157,6 +157,10 @@ export const stockIn = async (req, res) => {
       relatedId: transaction._id,
       relatedModel: null,
     });
+    // CHECK STOCK STATUS AFTER STOCK-IN
+for (const item of transactionItems) {
+  await checkstocknotification(item.product);
+}
 
     // RESPONSE
     res.status(201).json({
@@ -172,10 +176,7 @@ export const stockIn = async (req, res) => {
       error: error.message,
     });
   }
-  // CHECK STOCK STATUS AFTER STOCK-IN
-for (const item of transactionItems) {
-  await checkstocknotification(item.product);
-}
+
 };
 
 // ==========================================
